@@ -57,3 +57,7 @@ func (vk *VK) Request(method string, params map[string]string) ([]byte, error) {
 
 	return body, nil
 }
+
+type Response struct {
+	Response int `json:"response"`
+}
