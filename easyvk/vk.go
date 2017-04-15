@@ -14,12 +14,14 @@ const API_URL = "https://api.vk.com/method/"
 type VK struct {
 	AccessToken string
 	Account     Account
+	Status      Status
 }
 
 func WithToken(token string) VK {
 	vk := VK{}
 	vk.AccessToken = token
 	vk.Account = Account{&vk }
+	vk.Status = Status{&vk }
 	return vk
 }
 
