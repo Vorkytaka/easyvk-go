@@ -34,3 +34,19 @@ type ProfileInfo struct {
 		} `json:"city"`
 	} `json:"response"`
 }
+
+type Counters struct {
+	Response struct {
+		Friends            int `json:"friends"`
+		FriendsSuggestions int `json:"friends_suggestions"`
+		Messages           int `json:"messages"`
+		Photos             int `json:"photos"`
+		Videos             int `json:"videos"`
+		Gifts              int `json:"gifts"`
+		Events             int `json:"events"`
+		Groups             int `json:"groups"`
+		Notifications      int `json:"notifications"`
+		SDK                int `json:"sdk"`
+		AppRequests        int `json:"app_requests"`
+	} `json:"response"`
+}

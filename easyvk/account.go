@@ -34,3 +34,17 @@ func (a *Account) GetProfileInfo() (ProfileInfo, error) {
 	}
 	return info, nil
 }
+
+func (a *Account) GetCounters(filter string) (Counters, error) {
+	params := map[string]string{"filter": filter }
+	resp, err := a.vk.Request("account.getCounters", params)
+	if err != nil {
+		return Counters{}, err
+	}
+	var counters Counters
+	err = json.Unmarshal(resp, &counters)
+	if err != nil {
+		return Counters{}, err
+	}
+	return counters, nil
+}
