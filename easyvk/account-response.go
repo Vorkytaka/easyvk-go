@@ -50,3 +50,24 @@ type Counters struct {
 		AppRequests        int `json:"app_requests"`
 	} `json:"response"`
 }
+
+type Permissions struct {
+	Notify        bool
+	Friends       bool
+	Photos        bool
+	Audio         bool
+	Video         bool
+	Pages         bool
+	Status        bool
+	Notes         bool
+	Messages      bool
+	Wall          bool
+	Ads           bool
+	Offline       bool
+	Docs          bool
+	Groups        bool
+	Notifications bool
+	Stats         bool
+	Email         bool
+	Market        bool
+}
