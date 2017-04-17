@@ -24,10 +24,13 @@ const statsBit = 1048576
 const emailBit = 4194304
 const marketBit = 134217728
 
+// An Account describes a set of methods
+// to work with account.
 type Account struct {
 	vk *VK
 }
 
+// GetInfo returns current account info.
 func (a *Account) GetInfo(fields string) (Info, error) {
 	params := map[string]string{"fields": fields }
 	resp, err := a.vk.Request("account.getInfo", params)
@@ -42,6 +45,7 @@ func (a *Account) GetInfo(fields string) (Info, error) {
 	return info, nil
 }
 
+// GetProfileInfo returns the current account info.
 func (a *Account) GetProfileInfo() (ProfileInfo, error) {
 	resp, err := a.vk.Request("account.getProfileInfo", nil)
 	if err != nil {
@@ -55,6 +59,7 @@ func (a *Account) GetProfileInfo() (ProfileInfo, error) {
 	return info, nil
 }
 
+// GetCounters returns values of user counters.
 func (a *Account) GetCounters(filter string) (Counters, error) {
 	params := map[string]string{"filter": filter }
 	resp, err := a.vk.Request("account.getCounters", params)
@@ -69,8 +74,9 @@ func (a *Account) GetCounters(filter string) (Counters, error) {
 	return counters, nil
 }
 
-func (a *Account) GetAppPermissions(user_id uint) (Permissions, error) {
-	params := map[string]string{"user_id": fmt.Sprint(user_id) }
+// GetAppPermissions returns settings of the user in this application.
+func (a *Account) GetAppPermissions(userID uint) (Permissions, error) {
+	params := map[string]string{"user_id": fmt.Sprint(userID) }
 	resp, err := a.vk.Request("account.getAppPermissions", params)
 	if err != nil {
 		return Permissions{}, err
