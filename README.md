@@ -1,14 +1,14 @@
-# EasyVK
-Package EasyVK provides you simple way work with VK API.
+# EasyVK [![GoDoc](https://godoc.org/github.com/SolidlSnake/easyvk-go/easyvk?status.svg)](https://godoc.org/github.com/SolidlSnake/easyvk-go/easyvk)
+Package EasyVK provides you simple way to work with VK API.
 
-#### How to work:
+### How to work:
 Initialize your VK object with your access token.
 ```go
 vk := easyvk.WithToken("token")
 ```
 Now you can call method of VK API with your vk variable.
 
-##### Examples:
+### Examples:
 Get user profile info:
 ```go
 info, err := vk.Account.GetProfileInfo()
@@ -19,7 +19,7 @@ userID := 1
 ok, err := vk.Status.Set("New status", 1)
 ```
 
-##### If you need to call method that not done yet:
+### If you need to call method that not done yet:
 ```go
 methodName := "account.banUser"
 params := map[string]string{

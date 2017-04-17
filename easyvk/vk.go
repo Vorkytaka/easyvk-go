@@ -1,5 +1,5 @@
 // Package easyvk provides you simple way
-// work with VK API.
+// to work with VK API.
 package easyvk
 
 import (
