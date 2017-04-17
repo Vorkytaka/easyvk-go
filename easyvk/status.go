@@ -11,7 +11,7 @@ type Status struct {
 	vk *VK
 }
 
-// Get Returns data required to show the
+// Get returns data required to show the
 // status of a user or community
 func (s *Status) Get(id int) (string, error) {
 	params := map[string]string{"user_id": fmt.Sprint(id) }
