@@ -5,24 +5,37 @@ import (
 	"fmt"
 )
 
-const notifyBit = 1
-const friendsBit = 2
-const photosBit = 4
-const audioBit = 8
-const videoBit = 16
-const pagesBit = 128
-const statusBit = 1024
-const notesBit = 2048
-const messagesBit = 4096
-const wallBit = 8192
-const adsBit = 32768
-const offlineBit = 65536
-const docsBit = 131072
-const groupsBit = 262144
-const notificationsBit = 524288
-const statsBit = 1048576
-const emailBit = 4194304
-const marketBit = 134217728
+const (
+	notifyBit = 1 << iota
+	friendsBit
+	photosBit
+	audioBit
+	videoBit
+	_
+	_
+	pagesBit
+	_
+	_
+	statusBit
+	notesBit
+	messagesBit
+	wallBit
+	_
+	adsBit
+	offlineBit
+	docsBit
+	groupsBit
+	notificationsBit
+	statsBit
+	_
+	emailBit
+	_
+	_
+	_
+	_
+	_
+	marketBit
+)
 
 // An Account describes a set of methods
 // to work with account.
