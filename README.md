@@ -16,7 +16,7 @@ info, err := vk.Account.GetProfileInfo()
 Set user status:
 ```go
 userID := 1
-ok, err := vk.Status.Set("New status", 1)
+ok, err := vk.Status.Set("New status", userID)
 ```
 
 ### If you need to call method that not done yet:
