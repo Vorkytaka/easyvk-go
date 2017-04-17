@@ -1,5 +1,6 @@
 package easyvk
 
+// A VKError describes vk errors info.
 type VKError struct {
 	Error struct {
 		Code    int `json:"error_code"`
