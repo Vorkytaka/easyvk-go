@@ -1,5 +1,6 @@
 package easyvk
 
+// An Info describes a set of user's info.
 type Info struct {
 	Response struct {
 		Country         string `json:"country"`
@@ -12,6 +13,7 @@ type Info struct {
 	} `json:"response"`
 }
 
+// A ProfileInfo describes a set of user's info.
 type ProfileInfo struct {
 	Response struct {
 		FirstName       string `json:"first_name"`
@@ -35,6 +37,7 @@ type ProfileInfo struct {
 	} `json:"response"`
 }
 
+// A Counters describes a set of user's counters.
 type Counters struct {
 	Response struct {
 		Friends            int `json:"friends"`
@@ -51,6 +54,7 @@ type Counters struct {
 	} `json:"response"`
 }
 
+// An Permissions describes a set of app's permissions.
 type Permissions struct {
 	Notify        bool
 	Friends       bool
