@@ -1,6 +1,16 @@
 # EasyVK [![GoDoc](https://godoc.org/github.com/SolidlSnake/easyvk-go/easyvk?status.svg)](https://godoc.org/github.com/SolidlSnake/easyvk-go/easyvk)
 Package EasyVK provides you simple way to work with VK API.
 
+### Installation:
+#### Install:
+```
+$ go get -u github.com/solidlsnake/easyvk-go/easyvk
+```
+#### Import:
+```go
+import "github.com/solidlsnake/easyvk-go/easyvk"
+```
+
 ### How to work:
 Initialize your VK object with your access token.
 ```go
