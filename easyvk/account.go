@@ -75,7 +75,7 @@ func (a *Account) GetAppPermissions(user_id uint) (Permissions, error) {
 	if err != nil {
 		return Permissions{}, err
 	}
-	var response Response
+	var response response
 	err = json.Unmarshal(resp, &response)
 	if err != nil {
 		return Permissions{}, err

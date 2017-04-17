@@ -32,7 +32,7 @@ func (s *Status) Set(text string, id int) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	var status Response
+	var status response
 	err = json.Unmarshal(resp, &status)
 	if err != nil {
 		return false, err
