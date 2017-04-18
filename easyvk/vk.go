@@ -17,6 +17,7 @@ const apiURL = "https://api.vk.com/method/"
 type VK struct {
 	AccessToken string
 	Account     Account
+	Fave        Fave
 	Photos      Photos
 	Status      Status
 }
@@ -27,6 +28,7 @@ func WithToken(token string) VK {
 	vk := VK{}
 	vk.AccessToken = token
 	vk.Account = Account{&vk }
+	vk.Fave = Fave{&vk }
 	vk.Photos = Photos{&vk }
 	vk.Status = Status{&vk }
 	return vk
@@ -77,7 +79,7 @@ func (vk *VK) ResponseWithCount(body []byte) ([]byte, uint, error) {
 		return nil, 0, err
 	}
 
-	byteArray, err := json.Marshal(response.Response[1])
+	byteArray, err := json.Marshal(response.Response[1:])
 	if err != nil {
 		return nil, 0, err
 	}

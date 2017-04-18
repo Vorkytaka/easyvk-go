@@ -49,6 +49,8 @@ if err != nil {
     * [GetCounters](https://vk.com/dev/account.getCounters)
     * [GetInfo](https://vk.com/dev/account.getInfo)
     * [GetProfileInfo](https://vk.com/dev/account.getProfileInfo)
+* [Fave](https://vk.com/dev/fave)
+    * [GetUsers](https://vk.com/dev/fave.getUsers)
 * [Photos](https://vk.com/dev/photos)
     * [GetWallUploadServer](https://vk.com/dev/photos.getWallUploadServer)
 * [Status](https://vk.com/dev/status)
