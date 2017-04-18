@@ -66,6 +66,25 @@ func (vk *VK) Request(method string, params map[string]string) ([]byte, error) {
 	return body, nil
 }
 
+// ResponseWithCount helps to work with specific response type
+func (vk *VK) ResponseWithCount(body []byte) ([]byte, uint, error) {
+	var response struct {
+		Response []interface{}
+	}
+
+	err := json.Unmarshal(body, &response)
+	if err != nil {
+		return nil, 0, err
+	}
+
+	byteArray, err := json.Marshal(response.Response[1])
+	if err != nil {
+		return nil, 0, err
+	}
+
+	return byteArray, uint(response.Response[0].(float64)), nil
+}
+
 type response struct {
 	Response int `json:"response"`
 }
