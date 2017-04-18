@@ -20,6 +20,7 @@ type VK struct {
 	Fave        Fave
 	Photos      Photos
 	Status      Status
+	Upload      Upload
 }
 
 // WithToken helps to initialize your
@@ -31,6 +32,7 @@ func WithToken(token string) VK {
 	vk.Fave = Fave{&vk }
 	vk.Photos = Photos{&vk }
 	vk.Status = Status{&vk }
+	vk.Upload = Upload{}
 	return vk
 }
 

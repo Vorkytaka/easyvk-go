@@ -57,3 +57,5 @@ if err != nil {
 * [Status](https://vk.com/dev/status)
     * [Get](https://vk.com/dev/status.get)
     * [Set](https://vk.com/dev/status.set)
+* Upload
+    * PhotoWall
