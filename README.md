@@ -54,6 +54,7 @@ if err != nil {
     * [GetLinks](https://vk.com/dev/fave.getLinks)
 * [Photos](https://vk.com/dev/photos)
     * [GetWallUploadServer](https://vk.com/dev/photos.getWallUploadServer)
+    * [SaveWallPhoto](https://vk.com/dev/photos.photos.saveWallPhoto)
 * [Status](https://vk.com/dev/status)
     * [Get](https://vk.com/dev/status.get)
     * [Set](https://vk.com/dev/status.set)
