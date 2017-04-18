@@ -28,6 +28,37 @@ Set user status:
 userID := 1
 ok, err := vk.Status.Set("New status", userID)
 ```
+Post photo on wall:
+```go
+// your id or
+// id of group
+id := 0
+
+server, err := vk.Photos.GetWallUploadServer(id)
+if err != nil {
+	log.Fatal(err)
+}
+
+// path to the image
+path := "./example/x.png"
+uploaded, err := vk.Upload.PhotoWall(server.Response.UploadURL, path)
+if err != nil {
+	log.Fatal(err)
+}
+
+saved, err := vk.Photos.SaveWallPhoto(0, id, uploaded.Photo, uploaded.Hash, "", uploaded.Server, 0, 0)
+if err != nil {
+	log.Fatal(err)
+}
+
+text := "Caption for the post"
+
+// -id if you post to group wall
+postID, err := vk.Wall.Post(id, false, true, false, false, false, text, saved.Response[0].ID, "", "", 0, 0, 0, 0, 0)
+if err != nil {
+	log.Fatal(err)
+}
+```
 
 ### If you need to call method that not done yet:
 ```go
@@ -58,5 +89,7 @@ if err != nil {
 * [Status](https://vk.com/dev/status)
     * [Get](https://vk.com/dev/status.get)
     * [Set](https://vk.com/dev/status.set)
+* [Wall](https://vk.com/dev/wall)
+    * [Post](https://vk.com/dev/wall.post)
 * Upload
     * PhotoWall
