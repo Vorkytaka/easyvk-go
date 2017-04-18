@@ -51,6 +51,7 @@ if err != nil {
     * [GetProfileInfo](https://vk.com/dev/account.getProfileInfo)
 * [Fave](https://vk.com/dev/fave)
     * [GetUsers](https://vk.com/dev/fave.getUsers)
+    * [GetLinks](https://vk.com/dev/fave.getLinks)
 * [Photos](https://vk.com/dev/photos)
     * [GetWallUploadServer](https://vk.com/dev/photos.getWallUploadServer)
 * [Status](https://vk.com/dev/status)
