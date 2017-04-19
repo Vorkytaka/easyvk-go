@@ -103,60 +103,24 @@ func (a *Account) GetAppPermissions(userID uint) (Permissions, error) {
 	perm := Permissions{}
 	permBits := response.Response
 
-	if permBits&notifyBit != 0 {
-		perm.Notify = true
-	}
-	if permBits&friendsBit != 0 {
-		perm.Friends = true
-	}
-	if permBits&photosBit != 0 {
-		perm.Photos = true
-	}
-	if permBits&audioBit != 0 {
-		perm.Audio = true
-	}
-	if permBits&videoBit != 0 {
-		perm.Video = true
-	}
-	if permBits&pagesBit != 0 {
-		perm.Pages = true
-	}
-	if permBits&statusBit != 0 {
-		perm.Status = true
-	}
-	if permBits&notesBit != 0 {
-		perm.Notes = true
-	}
-	if permBits&messagesBit != 0 {
-		perm.Messages = true
-	}
-	if permBits&wallBit != 0 {
-		perm.Wall = true
-	}
-	if permBits&adsBit != 0 {
-		perm.Ads = true
-	}
-	if permBits&offlineBit != 0 {
-		perm.Offline = true
-	}
-	if permBits&docsBit != 0 {
-		perm.Docs = true
-	}
-	if permBits&groupsBit != 0 {
-		perm.Groups = true
-	}
-	if permBits&notificationsBit != 0 {
-		perm.Notifications = true
-	}
-	if permBits&statsBit != 0 {
-		perm.Stats = true
-	}
-	if permBits&emailBit != 0 {
-		perm.Email = true
-	}
-	if permBits&marketBit != 0 {
-		perm.Market = true
-	}
+	perm.Notify = permBits&notifyBit != 0
+	perm.Friends = permBits&friendsBit != 0
+	perm.Photos = permBits&photosBit != 0
+	perm.Audio = permBits&audioBit != 0
+	perm.Video = permBits&videoBit != 0
+	perm.Pages = permBits&pagesBit != 0
+	perm.Status = permBits&statusBit != 0
+	perm.Notes = permBits&notesBit != 0
+	perm.Messages = permBits&messagesBit != 0
+	perm.Wall = permBits&wallBit != 0
+	perm.Ads = permBits&adsBit != 0
+	perm.Offline = permBits&offlineBit != 0
+	perm.Docs = permBits&docsBit != 0
+	perm.Groups = permBits&groupsBit != 0
+	perm.Notifications = permBits&notificationsBit != 0
+	perm.Stats = permBits&statsBit != 0
+	perm.Email = permBits&emailBit != 0
+	perm.Market = permBits&marketBit != 0
 
 	return perm, nil
 }

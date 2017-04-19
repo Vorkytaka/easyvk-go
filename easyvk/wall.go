@@ -32,31 +32,11 @@ func (w *Wall) Post(ownerID int,
 		"lat":          fmt.Sprint(lat),
 		"long":         fmt.Sprint(long),
 	}
-	if friendsOnly {
-		params["friends_only"] = "1"
-	} else {
-		params["friends_only"] = "0"
-	}
-	if fromGroup {
-		params["from_group"] = "1"
-	} else {
-		params["from_group"] = "0"
-	}
-	if signed {
-		params["signed"] = "1"
-	} else {
-		params["signed"] = "0"
-	}
-	if markAsAds {
-		params["mark_as_ads"] = "1"
-	} else {
-		params["mark_as_ads"] = "0"
-	}
-	if adsPromotedStealth {
-		params["ads_promoted_stealth"] = "1"
-	} else {
-		params["ads_promoted_stealth"] = "0"
-	}
+	params["friends_only"] = boolConverter(friendsOnly)
+	params["from_group"] = boolConverter(fromGroup)
+	params["signed"] = boolConverter(signed)
+	params["mark_as_ads"] = boolConverter(markAsAds)
+	params["ads_promoted_stealth"] = boolConverter(adsPromotedStealth)
 
 	resp, err := w.vk.Request("wall.post", params)
 	if err != nil {
@@ -68,4 +48,11 @@ func (w *Wall) Post(ownerID int,
 		return 0, nil
 	}
 	return info.Response.PostID, nil
+}
+
+func boolConverter(itIs bool) string {
+	if itIs {
+		return "1"
+	}
+	return "0"
 }
