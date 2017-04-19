@@ -53,7 +53,7 @@ func (f *Fave) GetLinks(offset, count uint) (FaveLinks, uint, error) {
 
 // GetPhotos returns a list of photos that the current user has bookmarked.
 // Also this func return count of all bookmarked photos.
-func (f *Fave) GetPhotos(offset, count uint) (FavePhotos, uint, error) {
+func (f *Fave) GetPhotos(offset, count uint) (FavePhotos, error) {
 	params := map[string]string{
 		"offset":      fmt.Sprint(offset),
 		"count":       fmt.Sprint(count),
@@ -61,14 +61,13 @@ func (f *Fave) GetPhotos(offset, count uint) (FavePhotos, uint, error) {
 	}
 	resp, err := f.vk.Request("fave.getPhotos", params)
 	if err != nil {
-		return FavePhotos{}, 0, err
+		return FavePhotos{}, err
 	}
-	nextResp, quantity, err := f.vk.ResponseWithCount(resp)
 	var links FavePhotos
-	err = json.Unmarshal(nextResp, &links)
+	err = json.Unmarshal(resp, &links)
 	if err != nil {
-		return FavePhotos{}, 0, err
+		return FavePhotos{}, err
 	}
 
-	return links, quantity, nil
+	return links, nil
 }
