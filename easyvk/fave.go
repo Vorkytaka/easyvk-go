@@ -12,24 +12,22 @@ type Fave struct {
 }
 
 // GetUsers returns a list of users whom the current user has bookmarked.
-// Also this func return count of all bookmarked users.
-func (f *Fave) GetUsers(offset, count uint) (FaveUsers, uint, error) {
+func (f *Fave) GetUsers(offset, count uint) (FaveUsers, error) {
 	params := map[string]string{
 		"offset": fmt.Sprint(offset),
 		"count":  fmt.Sprint(count),
 	}
 	resp, err := f.vk.Request("fave.getUsers", params)
 	if err != nil {
-		return FaveUsers{}, 0, err
+		return FaveUsers{}, err
 	}
-	nextResp, quantity, err := f.vk.ResponseWithCount(resp)
 	var users FaveUsers
-	err = json.Unmarshal(nextResp, &users)
+	err = json.Unmarshal(resp, &users)
 	if err != nil {
-		return FaveUsers{}, 0, err
+		return FaveUsers{}, err
 	}
 
-	return users, quantity, nil
+	return users, nil
 }
 
 // GetLinks returns a list of links that the current user has bookmarked.

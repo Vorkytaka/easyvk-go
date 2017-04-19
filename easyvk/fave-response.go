@@ -1,11 +1,16 @@
 package easyvk
 
-// A FaveUsers describes a slice of users
+// A FaveUsers describes a list of users
 // whom the current user has bookmarked.
-type FaveUsers []struct {
-	FirstName string `json:"first_name"`
-	LastName string `json:"last_name"`
-	UID int `json:"uid"`
+type FaveUsers struct {
+	Response struct {
+		Count int `json:"count"`
+		Items []struct {
+			ID int `json:"id"`
+			FirstName string `json:"first_name"`
+			LastName string `json:"last_name"`
+		} `json:"items"`
+	} `json:"response"`
 }
 
 // A FaveLinks describes a slice of links
