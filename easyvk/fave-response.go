@@ -13,16 +13,21 @@ type FaveUsers struct {
 	} `json:"response"`
 }
 
-// A FaveLinks describes a slice of links
+// A FaveLinks describes a list of links
 // that the current user has bookmarked.
-type FaveLinks []struct {
-	ID string `json:"id"`
-	URL string `json:"url"`
-	Title string `json:"title"`
-	Description string `json:"description"`
-	ImageSrc string `json:"image_src"`
-	ImageMiddle string `json:"image_middle"`
-	ImageBig string `json:"image_big"`
+type FaveLinks struct {
+	Response struct {
+		Count int `json:"count"`
+		Items []struct {
+			ID string `json:"id"`
+			URL string `json:"url"`
+			Title string `json:"title"`
+			Description string `json:"description"`
+			Photo50 string `json:"photo_50"`
+			Photo100 string `json:"photo_100"`
+			Photo200 string `json:"photo_200"`
+		} `json:"items"`
+	} `json:"response"`
 }
 
 // A FavePhotos describes a list of photos
