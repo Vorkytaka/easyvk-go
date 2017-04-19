@@ -5,8 +5,8 @@ package easyvk
 type WallUploadServer struct {
 	Response struct {
 		UploadURL string `json:"upload_url"`
-		AlbumID   int `json:"aid"`
-		UserID    int `json:"mid"`
+		AlbumID int `json:"album_id"`
+		UserID int `json:"user_id"`
 	} `json:"response"`
 }
 
