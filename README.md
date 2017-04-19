@@ -25,7 +25,9 @@ info, err := vk.Account.GetProfileInfo()
 ```
 Set user status:
 ```go
-userID := 1
+// If you want to update status on your page
+// then set ID to 0
+userID := 0
 ok, err := vk.Status.Set("New status", userID)
 ```
 Post photo on wall:
