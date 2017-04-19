@@ -16,6 +16,7 @@ const apiURL = "https://api.vk.com/method/"
 // working with VK API.
 type VK struct {
 	AccessToken string
+	Version     string
 	Account     Account
 	Fave        Fave
 	Photos      Photos
@@ -29,6 +30,7 @@ type VK struct {
 func WithToken(token string) VK {
 	vk := VK{}
 	vk.AccessToken = token
+	vk.Version = "5.63"
 	vk.Account = Account{&vk }
 	vk.Fave = Fave{&vk }
 	vk.Photos = Photos{&vk }
@@ -50,6 +52,7 @@ func (vk *VK) Request(method string, params map[string]string) ([]byte, error) {
 		query.Set(k, v)
 	}
 	query.Set("access_token", vk.AccessToken)
+	query.Set("v", vk.Version)
 	u.RawQuery = query.Encode()
 
 	resp, err := http.Get(u.String())
@@ -70,25 +73,6 @@ func (vk *VK) Request(method string, params map[string]string) ([]byte, error) {
 	}
 
 	return body, nil
-}
-
-// ResponseWithCount helps to work with specific response type
-func (vk *VK) ResponseWithCount(body []byte) ([]byte, uint, error) {
-	var response struct {
-		Response []interface{}
-	}
-
-	err := json.Unmarshal(body, &response)
-	if err != nil {
-		return nil, 0, err
-	}
-
-	byteArray, err := json.Marshal(response.Response[1:])
-	if err != nil {
-		return nil, 0, err
-	}
-
-	return byteArray, uint(response.Response[0].(float64)), nil
 }
 
 type response struct {

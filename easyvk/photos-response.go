@@ -5,8 +5,8 @@ package easyvk
 type WallUploadServer struct {
 	Response struct {
 		UploadURL string `json:"upload_url"`
-		AlbumID   int `json:"aid"`
-		UserID    int `json:"mid"`
+		AlbumID int `json:"album_id"`
+		UserID int `json:"user_id"`
 	} `json:"response"`
 }
 
@@ -14,17 +14,16 @@ type WallUploadServer struct {
 // saved photo on wall after being uploaded.
 type SavedWallPhoto struct {
 	Response []struct {
-		Pid int `json:"pid"`
-		ID string `json:"id"`
-		Aid int `json:"aid"`
+		ID int `json:"id"`
+		AlbumID int `json:"album_id"`
 		OwnerID int `json:"owner_id"`
-		Src string `json:"src"`
-		SrcBig string `json:"src_big"`
-		SrcSmall string `json:"src_small"`
-		SrcXbig string `json:"src_xbig"`
+		Photo75 string `json:"photo_75"`
+		Photo130 string `json:"photo_130"`
+		Photo604 string `json:"photo_604"`
+		Photo807 string `json:"photo_807"`
 		Width int `json:"width"`
 		Height int `json:"height"`
 		Text string `json:"text"`
-		Created int `json:"created"`
+		Date int `json:"date"`
 	} `json:"response"`
 }

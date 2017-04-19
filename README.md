@@ -25,39 +25,41 @@ info, err := vk.Account.GetProfileInfo()
 ```
 Set user status:
 ```go
-userID := 1
+// If you want to update status on your page
+// then set ID to 0
+userID := 0
 ok, err := vk.Status.Set("New status", userID)
 ```
 Post photo on wall:
 ```go
-// your id or
-// id of group
 id := 0
 
-server, err := vk.Photos.GetWallUploadServer(id)
+server, err := vk.Photos.GetWallUploadServer(uint(id))
 if err != nil {
 	log.Fatal(err)
 }
 
 // path to the image
-path := "./example/x.png"
+path := "D:/x.png"
 uploaded, err := vk.Upload.PhotoWall(server.Response.UploadURL, path)
 if err != nil {
 	log.Fatal(err)
 }
 
-saved, err := vk.Photos.SaveWallPhoto(0, id, uploaded.Photo, uploaded.Hash, "", uploaded.Server, 0, 0)
+saved, err := vk.Photos.SaveWallPhoto(0, uint(id), uploaded.Photo, uploaded.Hash, "", uploaded.Server, 0, 0)
 if err != nil {
 	log.Fatal(err)
 }
 
 text := "Caption for the post"
+photoID := "photo" + fmt.Sprint(saved.Response[0].OwnerID) + "_" + fmt.Sprint(saved.Response[0].ID)
 
 // -id if you post to group wall
-postID, err := vk.Wall.Post(id, false, true, false, false, false, text, saved.Response[0].ID, "", "", 0, 0, 0, 0, 0)
+x, err := vk.Wall.Post(id, false, true, false, false, false, text, photoID, "", "", 0, 0, 0, 0, 0)
 if err != nil {
 	log.Fatal(err)
 }
+fmt.Println(x)
 ```
 
 ### If you need to call method that not done yet:
