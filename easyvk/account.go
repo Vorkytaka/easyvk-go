@@ -124,3 +124,21 @@ func (a *Account) GetAppPermissions(userID uint) (Permissions, error) {
 
 	return perm, nil
 }
+
+// GetBanned returns a user's blacklist.
+func (a *Account) GetBanned(offset, count uint) (Blacklist, error) {
+	params := map[string]string{
+		"offset": fmt.Sprint(offset),
+		"count": fmt.Sprint(count),
+	}
+	resp, err := a.vk.Request("account.getBanned", params)
+	if err != nil {
+		return Blacklist{}, err
+	}
+	var list Blacklist
+	err = json.Unmarshal(resp, &list)
+	if err != nil {
+		return Blacklist{}, err
+	}
+	return list, nil
+}

@@ -79,6 +79,7 @@ if err != nil {
 #### List of finished methods:
 * [Account](https://vk.com/dev/account)
     * [GetAppPermissions](https://vk.com/dev/account.getAppPermissions)
+    * [GetBanned](https://vk.com/dev/account.getBanned)
     * [GetCounters](https://vk.com/dev/account.getCounters)
     * [GetInfo](https://vk.com/dev/account.getInfo)
     * [GetProfileInfo](https://vk.com/dev/account.getProfileInfo)

@@ -54,7 +54,7 @@ type Counters struct {
 	} `json:"response"`
 }
 
-// An Permissions describes a set of app's permissions.
+// A Permissions describes a set of app's permissions.
 type Permissions struct {
 	Notify        bool
 	Friends       bool
@@ -74,4 +74,17 @@ type Permissions struct {
 	Stats         bool
 	Email         bool
 	Market        bool
+}
+
+// A Blacklist describes a user's blacklist.
+type Blacklist struct {
+	Response struct {
+		Count int `json:"count"`
+		Items []struct {
+			ID int `json:"id"`
+			FirstName string `json:"first_name"`
+			LastName string `json:"last_name"`
+			Deactivated string `json:"deactivated"`
+		} `json:"items"`
+	} `json:"response"`
 }
