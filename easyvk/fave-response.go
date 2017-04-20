@@ -55,3 +55,27 @@ type FavePhotos struct {
 		} `json:"items"`
 	} `json:"response"`
 }
+
+// A FaveVideos describes a list of videos
+// that the current user has bookmarked.
+type FaveVideos struct {
+	Response struct {
+		Count int `json:"count"`
+		Items []struct {
+			ID int `json:"id"`
+			OwnerID int `json:"owner_id"`
+			Title string `json:"title"`
+			Duration int `json:"duration"`
+			Description string `json:"description"`
+			Date int `json:"date"`
+			Comments int `json:"comments"`
+			Views int `json:"views"`
+			Width int `json:"width"`
+			Height int `json:"height"`
+			Photo130 string `json:"photo_130"`
+			Photo320 string `json:"photo_320"`
+			Photo800 string `json:"photo_800"`
+			CanAdd int `json:"can_add"`
+		} `json:"items"`
+	} `json:"response"`
+}

@@ -68,3 +68,24 @@ func (f *Fave) GetPhotos(offset, count uint) (FavePhotos, error) {
 
 	return links, nil
 }
+
+// GetVideos returns a list of videos that the current user has bookmarked.
+func (f *Fave) GetVideos(offset, count uint) (FaveVideos, error) {
+	params := map[string]string{
+		"offset":      fmt.Sprint(offset),
+		"count":       fmt.Sprint(count),
+		"extended": "0",
+	}
+	resp, err := f.vk.Request("fave.getVideos", params)
+	if err != nil {
+		return FaveVideos{}, err
+	}
+	var links FaveVideos
+	err = json.Unmarshal(resp, &links)
+	if err != nil {
+		return FaveVideos{}, err
+	}
+
+	return links, nil
+}
+

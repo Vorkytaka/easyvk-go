@@ -87,6 +87,7 @@ if err != nil {
     * [GetLinks](https://vk.com/dev/fave.getLinks)
     * [GetPhotos](https://vk.com/dev/fave.getPhotos)
     * [GetUsers](https://vk.com/dev/fave.getUsers)
+    * [GetVideos](https://vk.com/dev/fave.getVideos)
 * [Photos](https://vk.com/dev/photos)
     * [GetWallUploadServer](https://vk.com/dev/photos.getWallUploadServer)
     * [SaveWallPhoto](https://vk.com/dev/photos.photos.saveWallPhoto)
