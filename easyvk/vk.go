@@ -8,6 +8,9 @@ import (
 	"io/ioutil"
 	"fmt"
 	"encoding/json"
+	"golang.org/x/net/html"
+	"net/http/cookiejar"
+	"io"
 )
 
 const version = "5.63"
@@ -50,7 +53,10 @@ func WithToken(token string) VK {
 
 func WithAuth(login, password, clientID, scope string) {
 	u := fmt.Sprintf(authURL, clientID, scope, version)
-	client := &http.Client{}
+	jar, _ := cookiejar.New(nil)
+	client := &http.Client{
+		Jar: jar,
+	}
 
 	resp, err := client.Get(u)
 	if err != nil {
@@ -58,11 +64,80 @@ func WithAuth(login, password, clientID, scope string) {
 	}
 	defer resp.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
+	args, u := parseForm(resp.Body)
+
+	args.Add("email", login)
+	args.Add("pass", password)
+
+	resp, err = client.PostForm(u, args)
 	if err != nil {
 
 	}
-	fmt.Println(string(body))
+
+	fmt.Println(resp.Request.URL)
+	if resp.Request.URL.Path != "/blank.html" {
+		args, u := parseForm(resp.Body)
+		resp, err = client.PostForm(u, args)
+		if err != nil {
+
+		}
+	}
+}
+
+func parseForm(body io.ReadCloser) (url.Values, string) {
+	tokenizer := html.NewTokenizer(body)
+
+	var form struct {
+		origin string
+		to     string
+		ip_h   string
+		lg_h   string
+		url    string
+	}
+
+	end := false
+	for !end {
+		tag := tokenizer.Next()
+
+		switch tag {
+		case html.ErrorToken:
+			end = true
+		case html.StartTagToken:
+			switch token := tokenizer.Token(); token.Data {
+			case "form":
+				for _, attr := range token.Attr {
+					if attr.Key == "action" {
+						form.url = attr.Val
+					}
+				}
+			case "input":
+				if token.Attr[1].Val == "_origin" {
+					form.origin = token.Attr[2].Val
+				}
+				if token.Attr[1].Val == "to" {
+					form.to = token.Attr[2].Val
+				}
+			}
+		case html.SelfClosingTagToken:
+			switch token := tokenizer.Token(); token.Data {
+			case "input":
+				if token.Attr[1].Val == "ip_h" {
+					form.ip_h = token.Attr[2].Val
+				}
+				if token.Attr[1].Val == "lg_h" {
+					form.lg_h = token.Attr[2].Val
+				}
+			}
+		}
+	}
+
+	args := url.Values{}
+	args.Add("_origin", form.origin)
+	args.Add("to", form.to)
+	args.Add("ip_h", form.ip_h)
+	args.Add("lg_h", form.lg_h)
+
+	return args, form.url
 }
 
 // Request provides access to VK API methods.
