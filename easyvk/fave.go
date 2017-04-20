@@ -31,7 +31,6 @@ func (f *Fave) GetUsers(offset, count uint) (FaveUsers, error) {
 }
 
 // GetLinks returns a list of links that the current user has bookmarked.
-// Also this func return count of all bookmarked links.
 func (f *Fave) GetLinks(offset, count uint) (FaveLinks,  error) {
 	params := map[string]string{
 		"offset": fmt.Sprint(offset),
@@ -51,7 +50,6 @@ func (f *Fave) GetLinks(offset, count uint) (FaveLinks,  error) {
 }
 
 // GetPhotos returns a list of photos that the current user has bookmarked.
-// Also this func return count of all bookmarked photos.
 func (f *Fave) GetPhotos(offset, count uint) (FavePhotos, error) {
 	params := map[string]string{
 		"offset":      fmt.Sprint(offset),
