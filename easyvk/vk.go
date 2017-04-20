@@ -10,7 +10,15 @@ import (
 	"encoding/json"
 )
 
+const version = "5.63"
 const apiURL = "https://api.vk.com/method/"
+const authURL = "https://oauth.vk.com/authorize?" +
+	"client_id=%s" +
+	"&scope=%s" +
+	"&redirect_uri=https://oauth.vk.com/blank.html" +
+	"&display=wap" +
+	"&v=%s" +
+	"&response_type=token"
 
 // VK defines a set of functions for
 // working with VK API.
@@ -30,7 +38,7 @@ type VK struct {
 func WithToken(token string) VK {
 	vk := VK{}
 	vk.AccessToken = token
-	vk.Version = "5.63"
+	vk.Version = version
 	vk.Account = Account{&vk }
 	vk.Fave = Fave{&vk }
 	vk.Photos = Photos{&vk }
@@ -38,6 +46,23 @@ func WithToken(token string) VK {
 	vk.Upload = Upload{}
 	vk.Wall = Wall{&vk }
 	return vk
+}
+
+func WithAuth(login, password, clientID, scope string) {
+	u := fmt.Sprintf(authURL, clientID, scope, version)
+	client := &http.Client{}
+
+	resp, err := client.Get(u)
+	if err != nil {
+
+	}
+	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+
+	}
+	fmt.Println(string(body))
 }
 
 // Request provides access to VK API methods.
