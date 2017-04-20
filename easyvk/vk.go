@@ -51,7 +51,7 @@ func WithToken(token string) VK {
 	return vk
 }
 
-func WithAuth(login, password, clientID, scope string) {
+func WithAuth(login, password, clientID, scope string) (VK, error) {
 	u := fmt.Sprintf(authURL, clientID, scope, version)
 	jar, _ := cookiejar.New(nil)
 	client := &http.Client{
@@ -77,11 +77,19 @@ func WithAuth(login, password, clientID, scope string) {
 	fmt.Println(resp.Request.URL)
 	if resp.Request.URL.Path != "/blank.html" {
 		args, u := parseForm(resp.Body)
-		resp, err = client.PostForm(u, args)
+		resp, err := client.PostForm(u, args)
 		if err != nil {
 
 		}
+		defer resp.Body.Close()
 	}
+
+	urlArgs, err := url.ParseQuery(resp.Request.URL.Fragment)
+	if err != nil {
+
+	}
+
+	return WithToken(urlArgs["access_token"][0]), nil
 }
 
 func parseForm(body io.ReadCloser) (url.Values, string) {
