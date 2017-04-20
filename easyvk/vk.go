@@ -11,6 +11,7 @@ import (
 	"golang.org/x/net/html"
 	"net/http/cookiejar"
 	"io"
+	"errors"
 )
 
 const version = "5.63"
@@ -51,6 +52,9 @@ func WithToken(token string) VK {
 	return vk
 }
 
+// WithAuth helps to initialize your VK object
+// with signing in by login, password, client id and scope
+// Scope must be a string like "friends,wall"
 func WithAuth(login, password, clientID, scope string) (VK, error) {
 	u := fmt.Sprintf(authURL, clientID, scope, version)
 	jar, _ := cookiejar.New(nil)
@@ -60,7 +64,7 @@ func WithAuth(login, password, clientID, scope string) (VK, error) {
 
 	resp, err := client.Get(u)
 	if err != nil {
-
+		return VK{}, err
 	}
 	defer resp.Body.Close()
 
@@ -71,22 +75,25 @@ func WithAuth(login, password, clientID, scope string) (VK, error) {
 
 	resp, err = client.PostForm(u, args)
 	if err != nil {
-
+		return VK{}, err
 	}
 
-	fmt.Println(resp.Request.URL)
 	if resp.Request.URL.Path != "/blank.html" {
 		args, u := parseForm(resp.Body)
 		resp, err := client.PostForm(u, args)
 		if err != nil {
-
+			return VK{}, err
 		}
 		defer resp.Body.Close()
+
+		if resp.Request.URL.Path != "/blank.html" {
+			return VK{}, errors.New("can't log in")
+		}
 	}
 
 	urlArgs, err := url.ParseQuery(resp.Request.URL.Fragment)
 	if err != nil {
-
+		return VK{}, err
 	}
 
 	return WithToken(urlArgs["access_token"][0]), nil
@@ -95,13 +102,8 @@ func WithAuth(login, password, clientID, scope string) (VK, error) {
 func parseForm(body io.ReadCloser) (url.Values, string) {
 	tokenizer := html.NewTokenizer(body)
 
-	var form struct {
-		origin string
-		to     string
-		ip_h   string
-		lg_h   string
-		url    string
-	}
+	u := ""
+	formData := map[string]string{}
 
 	end := false
 	for !end {
@@ -115,37 +117,37 @@ func parseForm(body io.ReadCloser) (url.Values, string) {
 			case "form":
 				for _, attr := range token.Attr {
 					if attr.Key == "action" {
-						form.url = attr.Val
+						u = attr.Val
 					}
 				}
 			case "input":
 				if token.Attr[1].Val == "_origin" {
-					form.origin = token.Attr[2].Val
+					formData["_origin"] = token.Attr[2].Val
 				}
 				if token.Attr[1].Val == "to" {
-					form.to = token.Attr[2].Val
+					formData["to"] = token.Attr[2].Val
 				}
 			}
 		case html.SelfClosingTagToken:
 			switch token := tokenizer.Token(); token.Data {
 			case "input":
 				if token.Attr[1].Val == "ip_h" {
-					form.ip_h = token.Attr[2].Val
+					formData["ip_h"] = token.Attr[2].Val
 				}
 				if token.Attr[1].Val == "lg_h" {
-					form.lg_h = token.Attr[2].Val
+					formData["lg_h"] = token.Attr[2].Val
 				}
 			}
 		}
 	}
 
 	args := url.Values{}
-	args.Add("_origin", form.origin)
-	args.Add("to", form.to)
-	args.Add("ip_h", form.ip_h)
-	args.Add("lg_h", form.lg_h)
 
-	return args, form.url
+	for key, val := range formData {
+		args.Add(key, val)
+	}
+
+	return args, u
 }
 
 // Request provides access to VK API methods.

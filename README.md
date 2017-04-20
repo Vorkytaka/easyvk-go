@@ -16,6 +16,16 @@ Initialize your VK object with your access token.
 ```go
 vk := easyvk.WithToken("token")
 ```
+Or you can log in by email and password.
+```go
+// put your email, password, client id and scope
+// scope must be a string like "friends,wall"
+v, err := easyvk.WithAuth("my@beautiful.mail", "pa$$word", "9182736", "friends,wall,photos")
+if err != nil {
+	// doesn't log in
+}
+```
+
 Now you can call method of VK API with your vk variable.
 
 ### Examples:
