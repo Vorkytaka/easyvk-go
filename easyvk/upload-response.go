@@ -4,6 +4,6 @@ package easyvk
 // about uploaded photo.
 type PhotoWall struct {
 	Server int `json:"server"`
-	Photo string `json:"photo"`
-	Hash string `json:"hash"`
+	Photo  string `json:"photo"`
+	Hash   string `json:"hash"`
 }

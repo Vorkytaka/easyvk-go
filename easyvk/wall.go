@@ -47,7 +47,7 @@ func (w *Wall) Post(ownerID int,
 	if err != nil {
 		return 0, nil
 	}
-	return info.Response.PostID, nil
+	return info.PostID, nil
 }
 
 func boolConverter(itIs bool) string {
