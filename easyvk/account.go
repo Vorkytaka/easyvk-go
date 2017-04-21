@@ -3,6 +3,7 @@ package easyvk
 import (
 	"encoding/json"
 	"fmt"
+	"strconv"
 )
 
 const (
@@ -94,14 +95,13 @@ func (a *Account) GetAppPermissions(userID uint) (Permissions, error) {
 	if err != nil {
 		return Permissions{}, err
 	}
-	var response response
-	err = json.Unmarshal(resp, &response)
+
+	permBits, err := strconv.ParseUint(string(resp), 10, 64)
 	if err != nil {
 		return Permissions{}, err
 	}
 
 	perm := Permissions{}
-	permBits := response.Response
 
 	perm.Notify = permBits&notifyBit != 0
 	perm.Friends = permBits&friendsBit != 0

@@ -186,9 +186,5 @@ func (vk *VK) Request(method string, params map[string]string) ([]byte, error) {
 		return nil, fmt.Errorf("Code %d: %s", handler.Error.Code, handler.Error.Message)
 	}
 
-	return body, nil
-}
-
-type response struct {
-	Response int `json:"response"`
+	return handler.Response, nil
 }

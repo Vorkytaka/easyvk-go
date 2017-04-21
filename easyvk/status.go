@@ -3,6 +3,7 @@ package easyvk
 import (
 	"encoding/json"
 	"fmt"
+	"strconv"
 )
 
 // A Status describes a set of methods
@@ -24,7 +25,7 @@ func (s *Status) Get(id int) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return status.Response.Text, nil
+	return status.Text, nil
 }
 
 // Set a new status for the current user
@@ -37,10 +38,9 @@ func (s *Status) Set(text string, id int) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	var status response
-	err = json.Unmarshal(resp, &status)
+	ok, err := strconv.ParseUint(string(resp), 10, 8)
 	if err != nil {
 		return false, err
 	}
-	return status.Response == 1, nil
+	return ok == 1, nil
 }
