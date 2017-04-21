@@ -176,10 +176,14 @@ func (vk *VK) Request(method string, params map[string]string) ([]byte, error) {
 		return nil, err
 	}
 
-	if string(body[2:7]) == "error" {
-		var e VKError
-		err = json.Unmarshal(body, &e)
-		return nil, fmt.Errorf("Code %d: %s", e.Error.Code, e.Error.Message)
+	var handler struct {
+		Error    *Error
+		Response json.RawMessage
+	}
+	err = json.Unmarshal(body, &handler)
+
+	if handler.Error != nil {
+		return nil, fmt.Errorf("Code %d: %s", handler.Error.Code, handler.Error.Message)
 	}
 
 	return body, nil
