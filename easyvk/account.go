@@ -158,3 +158,19 @@ func (a *Account) BanUser(userID uint) (bool, error) {
 	}
 	return ok == 1, nil
 }
+
+// UnbanUser deletes user from the blacklist.
+func (a *Account) UnbanUser(userID uint) (bool, error) {
+	params := map[string]string{
+		"user_id": fmt.Sprint(userID),
+	}
+	resp, err := a.vk.Request("account.unbanUser", params)
+	if err != nil {
+		return false, err
+	}
+	ok, err := strconv.ParseUint(string(resp), 10, 8)
+	if err != nil {
+		return false, err
+	}
+	return ok == 1, nil
+}
