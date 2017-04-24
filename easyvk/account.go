@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	notifyBit = 1 << iota
+	notifyBit        = 1 << iota
 	friendsBit
 	photosBit
 	audioBit
@@ -129,7 +129,7 @@ func (a *Account) GetAppPermissions(userID uint) (Permissions, error) {
 func (a *Account) GetBanned(offset, count uint) (Blacklist, error) {
 	params := map[string]string{
 		"offset": fmt.Sprint(offset),
-		"count": fmt.Sprint(count),
+		"count":  fmt.Sprint(count),
 	}
 	resp, err := a.vk.Request("account.getBanned", params)
 	if err != nil {
@@ -141,4 +141,20 @@ func (a *Account) GetBanned(offset, count uint) (Blacklist, error) {
 		return Blacklist{}, err
 	}
 	return list, nil
+}
+
+// BanUser adds user to the banlist.
+func (a *Account) BanUser(userID uint) (bool, error) {
+	params := map[string]string{
+		"user_id": fmt.Sprint(userID),
+	}
+	resp, err := a.vk.Request("account.banUser", params)
+	if err != nil {
+		return false, err
+	}
+	ok, err := strconv.ParseUint(string(resp), 10, 8)
+	if err != nil {
+		return false, err
+	}
+	return ok == 1, nil
 }
