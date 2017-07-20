@@ -1,14 +1,14 @@
-# EasyVK [![GoDoc](https://godoc.org/github.com/SolidlSnake/easyvk-go/easyvk?status.svg)](https://godoc.org/github.com/SolidlSnake/easyvk-go/easyvk)
+# EasyVK [![GoDoc](https://godoc.org/github.com/vorkytaka/easyvk-go/easyvk?status.svg)](https://godoc.org/github.com/vorkytaka/easyvk-go/easyvk)
 Package EasyVK provides you simple way to work with VK API.
 
 ### Installation:
 #### Install:
 ```
-$ go get -u github.com/solidlsnake/easyvk-go/easyvk
+$ go get -u github.com/vorkytaka/easyvk-go/easyvk
 ```
 #### Import:
 ```go
-import "github.com/solidlsnake/easyvk-go/easyvk"
+import "github.com/vorkytaka/easyvk-go/easyvk"
 ```
 
 ### How to work:
@@ -20,7 +20,7 @@ Or you can log in by email and password.
 ```go
 // put your email, password, client id and scope
 // scope must be a string like "friends,wall"
-v, err := easyvk.WithAuth("my@beautiful.mail", "pa$$word", "9182736", "friends,wall,photos")
+vk, err := easyvk.WithAuth("my@beautiful.mail", "pa$$word", "9182736", "friends,wall,photos")
 if err != nil {
 	// doesn't log in
 }
