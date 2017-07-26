@@ -183,7 +183,7 @@ func (vk *VK) Request(method string, params map[string]string) ([]byte, error) {
 	err = json.Unmarshal(body, &handler)
 
 	if handler.Error != nil {
-		return nil, fmt.Errorf("Code %d: %s", handler.Error.Code, handler.Error.Message)
+		return nil, handler.Error
 	}
 
 	return handler.Response, nil
