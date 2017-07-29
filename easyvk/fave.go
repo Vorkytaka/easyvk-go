@@ -17,11 +17,7 @@ type Fave struct {
 // https://vk.com/dev/fave.getUsers
 type FaveUsersResponse struct {
 	Count int `json:"count"`
-	Items []struct {
-		ID        int `json:"id"`
-		FirstName string `json:"first_name"`
-		LastName  string `json:"last_name"`
-	} `json:"items"`
+	Items []UserObject
 }
 
 // GetUsers returns a list of users whom the current user has bookmarked.

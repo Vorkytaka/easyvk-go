@@ -207,15 +207,8 @@ func (a *Account) GetAppPermissions(userID uint) (AccountAppPermissionsResponse,
 // A AccountBannedResponse describes a user's blacklist.
 // https://vk.com/dev/account.getBanned
 type AccountBannedResponse struct {
-	Response struct {
-		Count int `json:"count"`
-		Items []struct {
-			ID          int `json:"id"`
-			FirstName   string `json:"first_name"`
-			LastName    string `json:"last_name"`
-			Deactivated string `json:"deactivated"`
-		} `json:"items"`
-	} `json:"response"`
+	Count int `json:"count"`
+	Items []UserObject
 }
 
 // GetBanned returns a user's blacklist.
