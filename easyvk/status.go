@@ -20,7 +20,9 @@ func (s *Status) Get(id int) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	var status StatusInfo
+	var status struct {
+		Text string `json:"text"`
+	}
 	err = json.Unmarshal(resp, &status)
 	if err != nil {
 		return "", err
@@ -31,7 +33,7 @@ func (s *Status) Get(id int) (string, error) {
 // Set a new status for the current user
 func (s *Status) Set(text string, id int) (bool, error) {
 	params := map[string]string{
-		"text": text,
+		"text":     text,
 		"group_id": fmt.Sprint(id),
 	}
 	resp, err := s.vk.Request("status.set", params)

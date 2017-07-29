@@ -42,7 +42,10 @@ func (w *Wall) Post(ownerID int,
 	if err != nil {
 		return 0, nil
 	}
-	var info wallPost
+	var info struct {
+		PostID int `json:"post_id"`
+	}
+
 	err = json.Unmarshal(resp, &info)
 	if err != nil {
 		return 0, nil

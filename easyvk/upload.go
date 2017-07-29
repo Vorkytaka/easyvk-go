@@ -9,9 +9,18 @@ import (
 	"io"
 	"encoding/json"
 )
+
 // An Upload describes a set of methods
 // that helps with update to VK servers.
 type Upload struct{}
+
+// A PhotoWall describes an info
+// about uploaded photo.
+type PhotoWall struct {
+	Server int `json:"server"`
+	Photo  string `json:"photo"`
+	Hash   string `json:"hash"`
+}
 
 // PhotoWall upload file (on filePath) to given url.
 // Return info about uploaded photo.
