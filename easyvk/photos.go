@@ -11,32 +11,32 @@ type Photos struct {
 	vk *VK
 }
 
-// WallUploadServer describes the server address
+// PhotosWallUploadServerResponse describes the server address
 // for photo upload onto a user's wall.
-type WallUploadServer struct {
+type PhotosWallUploadServerResponse struct {
 	UploadURL string `json:"upload_url"`
 	AlbumID   int `json:"album_id"`
 	UserID    int `json:"user_id"`
 }
 
 // GetWallUploadServer returns the server address for photo upload onto a user's wall.
-func (p *Photos) GetWallUploadServer(groupID uint) (WallUploadServer, error) {
+func (p *Photos) GetWallUploadServer(groupID uint) (PhotosWallUploadServerResponse, error) {
 	params := map[string]string{"group_id": fmt.Sprint(groupID) }
 	resp, err := p.vk.Request("photos.getWallUploadServer", params)
 	if err != nil {
-		return WallUploadServer{}, err
+		return PhotosWallUploadServerResponse{}, err
 	}
-	var server WallUploadServer
+	var server PhotosWallUploadServerResponse
 	err = json.Unmarshal(resp, &server)
 	if err != nil {
-		return WallUploadServer{}, err
+		return PhotosWallUploadServerResponse{}, err
 	}
 	return server, nil
 }
 
-// SavedWallPhoto describes info about
+// PhotosSavedWallPhotoResponse describes info about
 // saved photo on wall after being uploaded.
-type SavedWallPhoto []struct {
+type PhotosSavedWallPhotoResponse []struct {
 	ID       int `json:"id"`
 	AlbumID  int `json:"album_id"`
 	OwnerID  int `json:"owner_id"`
@@ -52,7 +52,7 @@ type SavedWallPhoto []struct {
 
 // SaveWallPhoto saves a photo to a user's or community's wall after being uploaded.
 // For upload look at file upload.go.
-func (p *Photos) SaveWallPhoto(userID, groupID uint, photo, hash, caption string, server int, latitude, longitude float64) (SavedWallPhoto, error) {
+func (p *Photos) SaveWallPhoto(userID, groupID uint, photo, hash, caption string, server int, latitude, longitude float64) (PhotosSavedWallPhotoResponse, error) {
 	params := map[string]string{
 		"user_id":   fmt.Sprint(userID),
 		"group_id":  fmt.Sprint(groupID),
@@ -65,13 +65,13 @@ func (p *Photos) SaveWallPhoto(userID, groupID uint, photo, hash, caption string
 	}
 	resp, err := p.vk.Request("photos.saveWallPhoto", params)
 	if err != nil {
-		return SavedWallPhoto{}, err
+		return PhotosSavedWallPhotoResponse{}, err
 	}
 
-	var info SavedWallPhoto
+	var info PhotosSavedWallPhotoResponse
 	err = json.Unmarshal(resp, &info)
 	if err != nil {
-		return SavedWallPhoto{}, err
+		return PhotosSavedWallPhotoResponse{}, err
 	}
 	return info, nil
 }
