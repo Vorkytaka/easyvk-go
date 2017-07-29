@@ -7,13 +7,15 @@ import (
 
 // A Wall describes a set of methods
 // to work with wall.
+// https://vk.com/dev/wall
 type Wall struct {
 	vk *VK
 }
 
 // Post adds a new post on a user wall or community wall.
 // Can also be used to publish suggested or scheduled posts.
-// Returns id of post.
+// Returns id of created post.
+// https://vk.com/dev/wall.post
 func (w *Wall) Post(ownerID int,
 	friendsOnly, fromGroup, signed, markAsAds, adsPromotedStealth bool,
 	message, attachments, services, guid string,
