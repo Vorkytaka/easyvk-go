@@ -14,15 +14,17 @@ import (
 	"errors"
 )
 
-const version = "5.63"
-const apiURL = "https://api.vk.com/method/"
-const authURL = "https://oauth.vk.com/authorize?" +
-	"client_id=%s" +
-	"&scope=%s" +
-	"&redirect_uri=https://oauth.vk.com/blank.html" +
-	"&display=wap" +
-	"&v=%s" +
-	"&response_type=token"
+const (
+	version = "5.63"
+	apiURL  = "https://api.vk.com/method/"
+	authURL   = "https://oauth.vk.com/authorize?" +
+		"client_id=%s" +
+		"&scope=%s" +
+		"&redirect_uri=https://oauth.vk.com/blank.html" +
+		"&display=wap" +
+		"&v=%s" +
+		"&response_type=token"
+)
 
 // VK defines a set of functions for
 // working with VK API.
