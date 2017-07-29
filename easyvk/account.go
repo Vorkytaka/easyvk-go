@@ -44,8 +44,8 @@ type Account struct {
 	vk *VK
 }
 
-// An Info describes a set of user's info.
-type Info struct {
+// An AccountInfoResponse describes a set of user's info.
+type AccountInfoResponse struct {
 	Country         string `json:"country"`
 	HTTPS           int `json:"https_required"`
 	TwoFactor       int `json:"2fa_required"`
@@ -56,22 +56,22 @@ type Info struct {
 }
 
 // GetInfo returns current account info.
-func (a *Account) GetInfo(fields string) (Info, error) {
+func (a *Account) GetInfo(fields string) (AccountInfoResponse, error) {
 	params := map[string]string{"fields": fields }
 	resp, err := a.vk.Request("account.getInfo", params)
 	if err != nil {
-		return Info{}, err
+		return AccountInfoResponse{}, err
 	}
-	var info Info
+	var info AccountInfoResponse
 	err = json.Unmarshal(resp, &info)
 	if err != nil {
-		return Info{}, err
+		return AccountInfoResponse{}, err
 	}
 	return info, nil
 }
 
-// A ProfileInfo describes a set of user's info.
-type ProfileInfo struct {
+// A AccountProfileInfoResponse describes a set of user's info.
+type AccountProfileInfoResponse struct {
 	FirstName       string `json:"first_name"`
 	LastName        string `json:"last_name"`
 	ScreenName      string `json:"screen_name"`
@@ -93,21 +93,21 @@ type ProfileInfo struct {
 }
 
 // GetProfileInfo returns the current account info.
-func (a *Account) GetProfileInfo() (ProfileInfo, error) {
+func (a *Account) GetProfileInfo() (AccountProfileInfoResponse, error) {
 	resp, err := a.vk.Request("account.getProfileInfo", nil)
 	if err != nil {
-		return ProfileInfo{}, err
+		return AccountProfileInfoResponse{}, err
 	}
-	var info ProfileInfo
+	var info AccountProfileInfoResponse
 	err = json.Unmarshal(resp, &info)
 	if err != nil {
-		return ProfileInfo{}, err
+		return AccountProfileInfoResponse{}, err
 	}
 	return info, nil
 }
 
-// A Counters describes a set of user's counters.
-type Counters struct {
+// A AccountCountersResponse describes a set of user's counters.
+type AccountCountersResponse struct {
 	Friends            int `json:"friends"`
 	FriendsSuggestions int `json:"friends_suggestions"`
 	Messages           int `json:"messages"`
@@ -122,22 +122,22 @@ type Counters struct {
 }
 
 // GetCounters returns values of user counters.
-func (a *Account) GetCounters(filter string) (Counters, error) {
+func (a *Account) GetCounters(filter string) (AccountCountersResponse, error) {
 	params := map[string]string{"filter": filter }
 	resp, err := a.vk.Request("account.getCounters", params)
 	if err != nil {
-		return Counters{}, err
+		return AccountCountersResponse{}, err
 	}
-	var counters Counters
+	var counters AccountCountersResponse
 	err = json.Unmarshal(resp, &counters)
 	if err != nil {
-		return Counters{}, err
+		return AccountCountersResponse{}, err
 	}
 	return counters, nil
 }
 
-// A Permissions describes a set of app's permissions.
-type Permissions struct {
+// A AccountPermissionsResponse describes a set of app's permissions.
+type AccountPermissionsResponse struct {
 	Notify        bool
 	Friends       bool
 	Photos        bool
@@ -159,19 +159,19 @@ type Permissions struct {
 }
 
 // GetAppPermissions returns settings of the user in this application.
-func (a *Account) GetAppPermissions(userID uint) (Permissions, error) {
+func (a *Account) GetAppPermissions(userID uint) (AccountPermissionsResponse, error) {
 	params := map[string]string{"user_id": fmt.Sprint(userID) }
 	resp, err := a.vk.Request("account.getAppPermissions", params)
 	if err != nil {
-		return Permissions{}, err
+		return AccountPermissionsResponse{}, err
 	}
 
 	permBits, err := strconv.ParseUint(string(resp), 10, 64)
 	if err != nil {
-		return Permissions{}, err
+		return AccountPermissionsResponse{}, err
 	}
 
-	perm := Permissions{}
+	perm := AccountPermissionsResponse{}
 
 	perm.Notify = permBits&notifyBit != 0
 	perm.Friends = permBits&friendsBit != 0
@@ -195,8 +195,8 @@ func (a *Account) GetAppPermissions(userID uint) (Permissions, error) {
 	return perm, nil
 }
 
-// A Blacklist describes a user's blacklist.
-type Blacklist struct {
+// A AccountBannedResponse describes a user's blacklist.
+type AccountBannedResponse struct {
 	Response struct {
 		Count int `json:"count"`
 		Items []struct {
@@ -209,19 +209,19 @@ type Blacklist struct {
 }
 
 // GetBanned returns a user's blacklist.
-func (a *Account) GetBanned(offset, count uint) (Blacklist, error) {
+func (a *Account) GetBanned(offset, count uint) (AccountBannedResponse, error) {
 	params := map[string]string{
 		"offset": fmt.Sprint(offset),
 		"count":  fmt.Sprint(count),
 	}
 	resp, err := a.vk.Request("account.getBanned", params)
 	if err != nil {
-		return Blacklist{}, err
+		return AccountBannedResponse{}, err
 	}
-	var list Blacklist
+	var list AccountBannedResponse
 	err = json.Unmarshal(resp, &list)
 	if err != nil {
-		return Blacklist{}, err
+		return AccountBannedResponse{}, err
 	}
 	return list, nil
 }
