@@ -8,12 +8,14 @@ import (
 
 // A Status describes a set of methods
 // to work with status.
+// https://vk.com/dev/status
 type Status struct {
 	vk *VK
 }
 
 // Get returns data required to show the
 // status of a user or community
+// https://vk.com/dev/status.get
 func (s *Status) Get(id int) (string, error) {
 	params := map[string]string{"user_id": fmt.Sprint(id) }
 	resp, err := s.vk.Request("status.get", params)
@@ -31,6 +33,7 @@ func (s *Status) Get(id int) (string, error) {
 }
 
 // Set a new status for the current user
+// https://vk.com/dev/status.set
 func (s *Status) Set(text string, id int) (bool, error) {
 	params := map[string]string{
 		"text":     text,
