@@ -40,11 +40,13 @@ const (
 
 // An Account describes a set of methods
 // to work with account.
+// https://vk.com/dev/account
 type Account struct {
 	vk *VK
 }
 
 // An AccountInfoResponse describes a set of user's info.
+// https://vk.com/dev/account.getInfo
 type AccountInfoResponse struct {
 	Country         string `json:"country"`
 	HTTPS           int `json:"https_required"`
@@ -56,6 +58,7 @@ type AccountInfoResponse struct {
 }
 
 // GetInfo returns current account info.
+// https://vk.com/dev/account.getInfo
 func (a *Account) GetInfo(fields string) (AccountInfoResponse, error) {
 	params := map[string]string{"fields": fields }
 	resp, err := a.vk.Request("account.getInfo", params)
@@ -71,6 +74,7 @@ func (a *Account) GetInfo(fields string) (AccountInfoResponse, error) {
 }
 
 // A AccountProfileInfoResponse describes a set of user's info.
+// https://vk.com/dev/account.getProfileInfo
 type AccountProfileInfoResponse struct {
 	FirstName       string `json:"first_name"`
 	LastName        string `json:"last_name"`
@@ -93,6 +97,7 @@ type AccountProfileInfoResponse struct {
 }
 
 // GetProfileInfo returns the current account info.
+// https://vk.com/dev/account.getProfileInfo
 func (a *Account) GetProfileInfo() (AccountProfileInfoResponse, error) {
 	resp, err := a.vk.Request("account.getProfileInfo", nil)
 	if err != nil {
@@ -107,6 +112,7 @@ func (a *Account) GetProfileInfo() (AccountProfileInfoResponse, error) {
 }
 
 // A AccountCountersResponse describes a set of user's counters.
+// https://vk.com/dev/account.getCounters
 type AccountCountersResponse struct {
 	Friends            int `json:"friends"`
 	FriendsSuggestions int `json:"friends_suggestions"`
@@ -122,6 +128,7 @@ type AccountCountersResponse struct {
 }
 
 // GetCounters returns values of user counters.
+// https://vk.com/dev/account.getCounters
 func (a *Account) GetCounters(filter string) (AccountCountersResponse, error) {
 	params := map[string]string{"filter": filter }
 	resp, err := a.vk.Request("account.getCounters", params)
@@ -136,8 +143,9 @@ func (a *Account) GetCounters(filter string) (AccountCountersResponse, error) {
 	return counters, nil
 }
 
-// A AccountPermissionsResponse describes a set of app's permissions.
-type AccountPermissionsResponse struct {
+// A AccountAppPermissionsResponse describes a set of app's permissions.
+// https://vk.com/dev/account.getAppPermissions
+type AccountAppPermissionsResponse struct {
 	Notify        bool
 	Friends       bool
 	Photos        bool
@@ -159,19 +167,20 @@ type AccountPermissionsResponse struct {
 }
 
 // GetAppPermissions returns settings of the user in this application.
-func (a *Account) GetAppPermissions(userID uint) (AccountPermissionsResponse, error) {
+// https://vk.com/dev/account.getAppPermissions
+func (a *Account) GetAppPermissions(userID uint) (AccountAppPermissionsResponse, error) {
 	params := map[string]string{"user_id": fmt.Sprint(userID) }
 	resp, err := a.vk.Request("account.getAppPermissions", params)
 	if err != nil {
-		return AccountPermissionsResponse{}, err
+		return AccountAppPermissionsResponse{}, err
 	}
 
 	permBits, err := strconv.ParseUint(string(resp), 10, 64)
 	if err != nil {
-		return AccountPermissionsResponse{}, err
+		return AccountAppPermissionsResponse{}, err
 	}
 
-	perm := AccountPermissionsResponse{}
+	perm := AccountAppPermissionsResponse{}
 
 	perm.Notify = permBits&notifyBit != 0
 	perm.Friends = permBits&friendsBit != 0
@@ -196,6 +205,7 @@ func (a *Account) GetAppPermissions(userID uint) (AccountPermissionsResponse, er
 }
 
 // A AccountBannedResponse describes a user's blacklist.
+// https://vk.com/dev/account.getBanned
 type AccountBannedResponse struct {
 	Response struct {
 		Count int `json:"count"`
@@ -209,6 +219,7 @@ type AccountBannedResponse struct {
 }
 
 // GetBanned returns a user's blacklist.
+// https://vk.com/dev/account.getBanned
 func (a *Account) GetBanned(offset, count uint) (AccountBannedResponse, error) {
 	params := map[string]string{
 		"offset": fmt.Sprint(offset),
@@ -227,6 +238,7 @@ func (a *Account) GetBanned(offset, count uint) (AccountBannedResponse, error) {
 }
 
 // BanUser adds user to the banlist.
+// https://vk.com/dev/account.banUser
 func (a *Account) BanUser(userID uint) (bool, error) {
 	params := map[string]string{
 		"user_id": fmt.Sprint(userID),
@@ -243,6 +255,7 @@ func (a *Account) BanUser(userID uint) (bool, error) {
 }
 
 // UnbanUser deletes user from the blacklist.
+// https://vk.com/dev/account.unbanUser
 func (a *Account) UnbanUser(userID uint) (bool, error) {
 	params := map[string]string{
 		"user_id": fmt.Sprint(userID),
