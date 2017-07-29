@@ -14,9 +14,9 @@ import (
 // that helps with update to VK servers.
 type Upload struct{}
 
-// A PhotoWall describes an info
+// A UploadPhotoWallResponse describes an info
 // about uploaded photo.
-type PhotoWall struct {
+type UploadPhotoWallResponse struct {
 	Server int `json:"server"`
 	Photo  string `json:"photo"`
 	Hash   string `json:"hash"`
@@ -24,23 +24,23 @@ type PhotoWall struct {
 
 // PhotoWall upload file (on filePath) to given url.
 // Return info about uploaded photo.
-func (u *Upload) PhotoWall(url, filePath string) (PhotoWall, error) {
+func (u *Upload) PhotoWall(url, filePath string) (UploadPhotoWallResponse, error) {
 	bodyBuf := &bytes.Buffer{}
 	bodyWriter := multipart.NewWriter(bodyBuf)
 
 	fileWriter, err := bodyWriter.CreateFormFile("photo", filePath)
 	if err != nil {
-		return PhotoWall{}, err
+		return UploadPhotoWallResponse{}, err
 	}
 
 	fh, err := os.Open(filePath)
 	if err != nil {
-		return PhotoWall{}, err
+		return UploadPhotoWallResponse{}, err
 	}
 
 	_, err = io.Copy(fileWriter, fh)
 	if err != nil {
-		return PhotoWall{}, err
+		return UploadPhotoWallResponse{}, err
 	}
 
 	contentType := bodyWriter.FormDataContentType()
@@ -48,19 +48,19 @@ func (u *Upload) PhotoWall(url, filePath string) (PhotoWall, error) {
 
 	resp, err := http.Post(url, contentType, bodyBuf)
 	if err != nil {
-		return PhotoWall{}, err
+		return UploadPhotoWallResponse{}, err
 	}
 	defer resp.Body.Close()
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return PhotoWall{}, err
+		return UploadPhotoWallResponse{}, err
 	}
 
-	var uploaded PhotoWall
+	var uploaded UploadPhotoWallResponse
 	err = json.Unmarshal(body, &uploaded)
 	if err != nil {
-		return PhotoWall{}, err
+		return UploadPhotoWallResponse{}, err
 	}
 
 	return uploaded, nil
