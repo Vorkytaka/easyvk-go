@@ -1,5 +1,7 @@
 package easyvk
 
+// An UserObject contains information about user.
+// https://vk.com/dev/objects/user
 type UserObject struct {
 	ID         int `json:"id"`
 	FirstName  string `json:"first_name"`
