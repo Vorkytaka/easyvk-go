@@ -7,12 +7,14 @@ import (
 
 // A Fave describes a set of methods
 // to work with faves.
+// https://vk.com/dev/fave
 type Fave struct {
 	vk *VK
 }
 
 // A FaveUsersResponse describes a list of users
 // whom the current user has bookmarked.
+// https://vk.com/dev/fave.getUsers
 type FaveUsersResponse struct {
 	Count int `json:"count"`
 	Items []struct {
@@ -23,6 +25,7 @@ type FaveUsersResponse struct {
 }
 
 // GetUsers returns a list of users whom the current user has bookmarked.
+// https://vk.com/dev/fave.getUsers
 func (f *Fave) GetUsers(offset, count uint) (FaveUsersResponse, error) {
 	params := map[string]string{
 		"offset": fmt.Sprint(offset),
@@ -43,6 +46,7 @@ func (f *Fave) GetUsers(offset, count uint) (FaveUsersResponse, error) {
 
 // A FaveLinksResponse describes a list of links
 // that the current user has bookmarked.
+// https://vk.com/dev/fave.getLinks
 type FaveLinksResponse struct {
 	Count int `json:"count"`
 	Items []struct {
@@ -57,6 +61,7 @@ type FaveLinksResponse struct {
 }
 
 // GetLinks returns a list of links that the current user has bookmarked.
+// https://vk.com/dev/fave.getLinks
 func (f *Fave) GetLinks(offset, count uint) (FaveLinksResponse, error) {
 	params := map[string]string{
 		"offset": fmt.Sprint(offset),
@@ -77,6 +82,7 @@ func (f *Fave) GetLinks(offset, count uint) (FaveLinksResponse, error) {
 
 // A FavePhotosResponse describes a list of photos
 // that the current user has bookmarked.
+// https://vk.com/dev/fave.getPhotos
 type FavePhotosResponse struct {
 	Count int `json:"count"`
 	Items []struct {
@@ -100,6 +106,7 @@ type FavePhotosResponse struct {
 }
 
 // GetPhotos returns a list of photos that the current user has bookmarked.
+// https://vk.com/dev/fave.getPhotos
 func (f *Fave) GetPhotos(offset, count uint) (FavePhotosResponse, error) {
 	params := map[string]string{
 		"offset":      fmt.Sprint(offset),
@@ -121,6 +128,7 @@ func (f *Fave) GetPhotos(offset, count uint) (FavePhotosResponse, error) {
 
 // A FaveVideosResponse describes a list of videos
 // that the current user has bookmarked.
+// https://vk.com/dev/fave.getVideos
 type FaveVideosResponse struct {
 	Count int `json:"count"`
 	Items []struct {
@@ -142,6 +150,7 @@ type FaveVideosResponse struct {
 }
 
 // GetVideos returns a list of videos that the current user has bookmarked.
+// https://vk.com/dev/fave.getVideos
 func (f *Fave) GetVideos(offset, count uint) (FaveVideosResponse, error) {
 	params := map[string]string{
 		"offset":   fmt.Sprint(offset),
