@@ -11,9 +11,9 @@ type Fave struct {
 	vk *VK
 }
 
-// A FaveUsers describes a list of users
+// A FaveUsersResponse describes a list of users
 // whom the current user has bookmarked.
-type FaveUsers struct {
+type FaveUsersResponse struct {
 	Count int `json:"count"`
 	Items []struct {
 		ID        int `json:"id"`
@@ -23,27 +23,27 @@ type FaveUsers struct {
 }
 
 // GetUsers returns a list of users whom the current user has bookmarked.
-func (f *Fave) GetUsers(offset, count uint) (FaveUsers, error) {
+func (f *Fave) GetUsers(offset, count uint) (FaveUsersResponse, error) {
 	params := map[string]string{
 		"offset": fmt.Sprint(offset),
 		"count":  fmt.Sprint(count),
 	}
 	resp, err := f.vk.Request("fave.getUsers", params)
 	if err != nil {
-		return FaveUsers{}, err
+		return FaveUsersResponse{}, err
 	}
-	var users FaveUsers
+	var users FaveUsersResponse
 	err = json.Unmarshal(resp, &users)
 	if err != nil {
-		return FaveUsers{}, err
+		return FaveUsersResponse{}, err
 	}
 
 	return users, nil
 }
 
-// A FaveLinks describes a list of links
+// A FaveLinksResponse describes a list of links
 // that the current user has bookmarked.
-type FaveLinks struct {
+type FaveLinksResponse struct {
 	Count int `json:"count"`
 	Items []struct {
 		ID          string `json:"id"`
@@ -57,27 +57,27 @@ type FaveLinks struct {
 }
 
 // GetLinks returns a list of links that the current user has bookmarked.
-func (f *Fave) GetLinks(offset, count uint) (FaveLinks, error) {
+func (f *Fave) GetLinks(offset, count uint) (FaveLinksResponse, error) {
 	params := map[string]string{
 		"offset": fmt.Sprint(offset),
 		"count":  fmt.Sprint(count),
 	}
 	resp, err := f.vk.Request("fave.getLinks", params)
 	if err != nil {
-		return FaveLinks{}, err
+		return FaveLinksResponse{}, err
 	}
-	var links FaveLinks
+	var links FaveLinksResponse
 	err = json.Unmarshal(resp, &links)
 	if err != nil {
-		return FaveLinks{}, err
+		return FaveLinksResponse{}, err
 	}
 
 	return links, nil
 }
 
-// A FavePhotos describes a list of photos
+// A FavePhotosResponse describes a list of photos
 // that the current user has bookmarked.
-type FavePhotos struct {
+type FavePhotosResponse struct {
 	Count int `json:"count"`
 	Items []struct {
 		ID        int `json:"id"`
@@ -100,7 +100,7 @@ type FavePhotos struct {
 }
 
 // GetPhotos returns a list of photos that the current user has bookmarked.
-func (f *Fave) GetPhotos(offset, count uint) (FavePhotos, error) {
+func (f *Fave) GetPhotos(offset, count uint) (FavePhotosResponse, error) {
 	params := map[string]string{
 		"offset":      fmt.Sprint(offset),
 		"count":       fmt.Sprint(count),
@@ -108,20 +108,20 @@ func (f *Fave) GetPhotos(offset, count uint) (FavePhotos, error) {
 	}
 	resp, err := f.vk.Request("fave.getPhotos", params)
 	if err != nil {
-		return FavePhotos{}, err
+		return FavePhotosResponse{}, err
 	}
-	var links FavePhotos
+	var links FavePhotosResponse
 	err = json.Unmarshal(resp, &links)
 	if err != nil {
-		return FavePhotos{}, err
+		return FavePhotosResponse{}, err
 	}
 
 	return links, nil
 }
 
-// A FaveVideos describes a list of videos
+// A FaveVideosResponse describes a list of videos
 // that the current user has bookmarked.
-type FaveVideos struct {
+type FaveVideosResponse struct {
 	Count int `json:"count"`
 	Items []struct {
 		ID          int `json:"id"`
@@ -142,7 +142,7 @@ type FaveVideos struct {
 }
 
 // GetVideos returns a list of videos that the current user has bookmarked.
-func (f *Fave) GetVideos(offset, count uint) (FaveVideos, error) {
+func (f *Fave) GetVideos(offset, count uint) (FaveVideosResponse, error) {
 	params := map[string]string{
 		"offset":   fmt.Sprint(offset),
 		"count":    fmt.Sprint(count),
@@ -150,12 +150,12 @@ func (f *Fave) GetVideos(offset, count uint) (FaveVideos, error) {
 	}
 	resp, err := f.vk.Request("fave.getVideos", params)
 	if err != nil {
-		return FaveVideos{}, err
+		return FaveVideosResponse{}, err
 	}
-	var links FaveVideos
+	var links FaveVideosResponse
 	err = json.Unmarshal(resp, &links)
 	if err != nil {
-		return FaveVideos{}, err
+		return FaveVideosResponse{}, err
 	}
 
 	return links, nil
