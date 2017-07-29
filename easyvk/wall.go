@@ -52,10 +52,3 @@ func (w *Wall) Post(ownerID int,
 	}
 	return info.PostID, nil
 }
-
-func boolConverter(itIs bool) string {
-	if itIs {
-		return "1"
-	}
-	return "0"
-}
