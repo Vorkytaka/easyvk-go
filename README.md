@@ -94,6 +94,8 @@ if err != nil {
     * [GetCounters](https://vk.com/dev/account.getCounters)
     * [GetInfo](https://vk.com/dev/account.getInfo)
     * [GetProfileInfo](https://vk.com/dev/account.getProfileInfo)
+    * [SetOffline](https://vk.com/dev/account.setOffline)
+    * [SetOnline](https://vk.com/dev/account.setOnline)
     * [UnbanUser](https://vk.com/dev/account.unbanUser)
 * [Fave](https://vk.com/dev/fave)
     * [GetLinks](https://vk.com/dev/fave.getLinks)

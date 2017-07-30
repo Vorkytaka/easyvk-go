@@ -263,3 +263,34 @@ func (a *Account) UnbanUser(userID uint) (bool, error) {
 	}
 	return ok == 1, nil
 }
+
+// SetOffline marks a current user as offline.
+// https://vk.com/dev/account.setOffline
+func (a *Account) SetOffline() (bool, error) {
+	resp, err := a.vk.Request("account.setOffline", nil)
+	if err != nil {
+		return false, err
+	}
+	ok, err := strconv.ParseUint(string(resp), 10, 8)
+	if err != nil {
+		return false, err
+	}
+	return ok == 1, nil
+}
+
+// SetOnline marks a current user as online for 5 minutes.
+// https://vk.com/dev/account.setOnline
+func (a *Account) SetOnline(voip bool) (bool, error) {
+	params := map[string]string{
+		"voip": boolConverter(voip),
+	}
+	resp, err := a.vk.Request("account.setOnline", params)
+	if err != nil {
+		return false, err
+	}
+	ok, err := strconv.ParseUint(string(resp), 10, 8)
+	if err != nil {
+		return false, err
+	}
+	return ok == 1, nil
+}
