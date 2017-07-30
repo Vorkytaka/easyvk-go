@@ -113,7 +113,7 @@ type UserObject struct {
 	Deactivated  string `json:"deactivated"`
 }
 
-// An PhotoObject contains information about photo.
+// A PhotoObject contains information about photo.
 // https://vk.com/dev/objects/photo
 type PhotoObject struct {
 	ID      int `json:"id"`
@@ -143,4 +143,42 @@ type PhotoObject struct {
 	Tags struct {
 		Count int `json:"count"`
 	} `json:"tags"`
+}
+
+// A VideoObject contains information about video.
+// https://vk.com/dev/objects/video
+type VideoObject struct {
+	ID          int `json:"id"`
+	OwnerID     int `json:"owner_id"`
+	Title       string `json:"title"`
+	Duration    int `json:"duration"`
+	Description string `json:"description"`
+	Date        int `json:"date"`
+	Comments    int `json:"comments"`
+	Views       int `json:"views"`
+	Width       int `json:"width"`
+	Height      int `json:"height"`
+	Photo130    string `json:"photo_130"`
+	Photo320    string `json:"photo_320"`
+	Photo800    string `json:"photo_800"`
+	AddingDate  int `json:"adding_date"`
+	Files struct {
+		Mp4240 string `json:"mp4_240"`
+		Mp4360 string `json:"mp4_360"`
+		Mp4480 string `json:"mp4_480"`
+		Mp4720 string `json:"mp4_720"`
+	} `json:"files"`
+	Player     string `json:"player"`
+	CanAdd     int `json:"can_add"`
+	CanComment int `json:"can_comment"`
+	CanRepost  int `json:"can_repost"`
+	Likes struct {
+		UserLikes int `json:"user_likes"`
+		Count     int `json:"count"`
+	} `json:"likes"`
+	Reposts struct {
+		Count        int `json:"count"`
+		UserReposted int `json:"user_reposted"`
+	} `json:"reposts"`
+	Repeat int `json:"repeat"`
 }
