@@ -81,24 +81,7 @@ func (f *Fave) GetLinks(offset, count uint) (FaveLinksResponse, error) {
 // https://vk.com/dev/fave.getPhotos
 type FavePhotosResponse struct {
 	Count int `json:"count"`
-	Items []struct {
-		ID        int `json:"id"`
-		AlbumID   int `json:"album_id"`
-		OwnerID   int `json:"owner_id"`
-		UserID    int `json:"user_id"`
-		Photo75   string `json:"photo_75"`
-		Photo130  string `json:"photo_130"`
-		Photo604  string `json:"photo_604"`
-		Photo807  string `json:"photo_807"`
-		Photo1280 string `json:"photo_1280"`
-		Photo2560 string `json:"photo_2560"`
-		Width     int `json:"width"`
-		Height    int `json:"height"`
-		Text      string `json:"text"`
-		Date      int `json:"date"`
-		PostID    int `json:"post_id"`
-		AccessKey string `json:"access_key"`
-	} `json:"items"`
+	Items []PhotoObject
 }
 
 // GetPhotos returns a list of photos that the current user has bookmarked.
@@ -107,7 +90,7 @@ func (f *Fave) GetPhotos(offset, count uint) (FavePhotosResponse, error) {
 	params := map[string]string{
 		"offset":      fmt.Sprint(offset),
 		"count":       fmt.Sprint(count),
-		"photo_sizes": "0",
+		"photo_sizes": "1",
 	}
 	resp, err := f.vk.Request("fave.getPhotos", params)
 	if err != nil {

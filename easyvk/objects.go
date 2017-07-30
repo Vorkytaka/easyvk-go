@@ -112,3 +112,35 @@ type UserObject struct {
 	Quotes       string `json:"quotes"`
 	Deactivated  string `json:"deactivated"`
 }
+
+// An PhotoObject contains information about photo.
+// https://vk.com/dev/objects/photo
+type PhotoObject struct {
+	ID      int `json:"id"`
+	AlbumID int `json:"album_id"`
+	OwnerID int `json:"owner_id"`
+	UserID  int `json:"user_id"`
+	Sizes []struct {
+		Src    string `json:"src"`
+		Width  int `json:"width"`
+		Height int `json:"height"`
+		Type   string `json:"type"`
+	} `json:"sizes"`
+	Text   string `json:"text"`
+	Date   int `json:"date"`
+	PostID int `json:"post_id"`
+	Likes struct {
+		UserLikes int `json:"user_likes"`
+		Count     int `json:"count"`
+	} `json:"likes"`
+	Reposts struct {
+		Count int `json:"count"`
+	} `json:"reposts"`
+	Comments struct {
+		Count int `json:"count"`
+	} `json:"comments"`
+	CanComment int `json:"can_comment"`
+	Tags struct {
+		Count int `json:"count"`
+	} `json:"tags"`
+}
