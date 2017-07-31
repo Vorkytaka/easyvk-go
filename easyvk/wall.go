@@ -42,7 +42,7 @@ func (w *Wall) Post(ownerID int,
 
 	resp, err := w.vk.Request("wall.post", params)
 	if err != nil {
-		return 0, nil
+		return 0, err
 	}
 	var info struct {
 		PostID int `json:"post_id"`
@@ -50,7 +50,7 @@ func (w *Wall) Post(ownerID int,
 
 	err = json.Unmarshal(resp, &info)
 	if err != nil {
-		return 0, nil
+		return 0, err
 	}
 	return info.PostID, nil
 }
