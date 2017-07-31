@@ -60,3 +60,25 @@ func (l *Likes) Add(t likeType, ownerID int, itemID uint, accessKey string) (int
 	}
 	return likes.Likes, nil
 }
+
+// Delete deletes the specified object from the Likes list of the current user.
+// https://vk.com/dev/likes.delete
+func (l *Likes) Delete(t likeType, ownerID int, itemID uint) (int, error) {
+	params := map[string]string{
+		"type":     string(t),
+		"owner_id": fmt.Sprint(ownerID),
+		"item_id":  fmt.Sprint(itemID),
+	}
+	resp, err := l.vk.Request("likes.delete", params)
+	if err != nil {
+		return 0, err
+	}
+	var likes struct {
+		Likes int `json:"likes"`
+	}
+	err = json.Unmarshal(resp, &likes)
+	if err != nil {
+		return 0, err
+	}
+	return likes.Likes, nil
+}
