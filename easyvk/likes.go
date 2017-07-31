@@ -82,3 +82,38 @@ func (l *Likes) Delete(t likeType, ownerID int, itemID uint) (int, error) {
 	}
 	return likes.Likes, nil
 }
+
+// LikesIsLikedResponse describes info about like and repost.
+// https://vk.com/dev/likes.isLiked
+type LikesIsLikedResponse struct {
+	Liked  bool
+	Copied bool
+}
+
+// IsLiked checks for the object in the Likes list of the specified user.
+// https://vk.com/dev/likes.isLiked
+func (l *Likes) IsLiked(userID uint, t likeType, ownerID int, itemID uint) (LikesIsLikedResponse, error) {
+	params := map[string]string{
+		"type":     string(t),
+		"owner_id": fmt.Sprint(ownerID),
+		"item_id":  fmt.Sprint(itemID),
+		"user_id":  fmt.Sprint(userID),
+	}
+	resp, err := l.vk.Request("likes.isLiked", params)
+	if err != nil {
+		return LikesIsLikedResponse{}, err
+	}
+	var r struct {
+		Liked  int `json:"liked"`
+		Copied int `json:"copied"`
+	}
+	err = json.Unmarshal(resp, &r)
+	if err != nil {
+		return LikesIsLikedResponse{}, err
+	}
+	response := LikesIsLikedResponse{
+		r.Liked == 1,
+		r.Copied == 1,
+	}
+	return response, nil
+}
