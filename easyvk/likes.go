@@ -117,3 +117,51 @@ func (l *Likes) IsLiked(userID uint, t likeType, ownerID int, itemID uint) (Like
 	}
 	return response, nil
 }
+
+// LikesGetListParams provides struct for getList parameters.
+// https://vk.com/dev/likes.getList
+type LikesGetListParams struct {
+	Type        likeType
+	OwnerID     int
+	ItemID      int
+	PageURL     string
+	Filter      string
+	FriendsOnly bool
+	Offset      uint
+	Count       uint
+	SkipOwner   bool
+}
+
+// LikesGetListResponse provides structure for getList response.
+// https://vk.com/dev/likes.getList
+type LikesGetListResponse struct {
+	Count int `json:"count"`
+	Items []UserObject
+}
+
+// GetList returns a list of IDs of users who added the specified object to their Likes list.
+// https://vk.com/dev/likes.getList
+func (l *Likes) GetList(params LikesGetListParams) (LikesGetListResponse, error) {
+	p := map[string]string{
+		"type":         string(params.Type),
+		"owner_id":     fmt.Sprint(params.OwnerID),
+		"item_id":      fmt.Sprint(params.ItemID),
+		"page_url":     params.PageURL,
+		"filter":       params.Filter,
+		"friends_only": boolConverter(params.FriendsOnly),
+		"extended":     "1",
+		"offset":       fmt.Sprint(params.Offset),
+		"count":        fmt.Sprint(params.Count),
+		"skip_own":     boolConverter(params.SkipOwner),
+	}
+	resp, err := l.vk.Request("likes.getList", p)
+	if err != nil {
+		return LikesGetListResponse{}, err
+	}
+	var response LikesGetListResponse
+	err = json.Unmarshal(resp, &response)
+	if err != nil {
+		return LikesGetListResponse{}, err
+	}
+	return response, nil
+}

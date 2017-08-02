@@ -105,6 +105,7 @@ if err != nil {
 * [Likes](https://vk.com/dev/likes)
     * [Add](https://vk.com/dev/likes.add)
     * [Delete](https://vk.com/dev/likes.delete)
+    * [GetList](https://vk.com/dev/likes.getList)
     * [IsLiked](https://vk.com/dev/likes.isLiked)
 * [Photos](https://vk.com/dev/photos)
     * [GetWallUploadServer](https://vk.com/dev/photos.getWallUploadServer)
