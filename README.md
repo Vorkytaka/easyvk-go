@@ -64,8 +64,12 @@ if err != nil {
 text := "Caption for the post"
 photoID := "photo" + fmt.Sprint(saved[0].OwnerID) + "_" + fmt.Sprint(saved[0].ID)
 
-// -id if you post to group wall
-x, err := vk.Wall.Post(id, false, true, false, false, false, text, photoID, "", "", 0, 0, 0, 0, 0)
+params := easyvk.WallPostParams{}
+params.OwnerID = id
+params.Message = "Test"
+params.Attachments = photoID
+
+x, err := vk.Wall.Post(params)
 if err != nil {
 	log.Fatal(err)
 }
