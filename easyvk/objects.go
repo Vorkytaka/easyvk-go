@@ -126,9 +126,17 @@ type PhotoObject struct {
 		Height int `json:"height"`
 		Type   string `json:"type"`
 	} `json:"sizes"`
-	Text   string `json:"text"`
-	Date   int `json:"date"`
-	PostID int `json:"post_id"`
+	Text      string `json:"text"`
+	Date      int `json:"date"`
+	PostID    int `json:"post_id"`
+	Width     int `json:"width"`
+	Height    int `json:"height"`
+	Photo75   string `json:"photo_75"`
+	Photo130  string `json:"photo_130"`
+	Photo604  string `json:"photo_604"`
+	Photo807  string `json:"photo_807"`
+	Photo1280 string `json:"photo_1280"`
+	Photo2560 string `json:"photo_2560"`
 	Likes struct {
 		UserLikes int `json:"user_likes"`
 		Count     int `json:"count"`
