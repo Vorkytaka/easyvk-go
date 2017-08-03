@@ -37,46 +37,43 @@ func (p *Photos) GetWallUploadServer(groupID uint) (PhotosWallUploadServerRespon
 	return server, nil
 }
 
-// PhotosSavedWallPhotoResponse describes info about
-// saved photo on wall after being uploaded.
+// PhotosSaveWallPhotoParams provides structure for
+// parameters for saveWallPhoto method.
 // https://vk.com/dev/photos.saveWallPhoto
-type PhotosSavedWallPhotoResponse []struct {
-	ID       int `json:"id"`
-	AlbumID  int `json:"album_id"`
-	OwnerID  int `json:"owner_id"`
-	Photo75  string `json:"photo_75"`
-	Photo130 string `json:"photo_130"`
-	Photo604 string `json:"photo_604"`
-	Photo807 string `json:"photo_807"`
-	Width    int `json:"width"`
-	Height   int `json:"height"`
-	Text     string `json:"text"`
-	Date     int `json:"date"`
+type PhotosSaveWallPhotoParams struct {
+	UserID  uint
+	GroupID uint
+	Photo   string
+	Hash    string
+	Caption string
+	Server  int
+	Lat     float64
+	Long    float64
 }
 
 // SaveWallPhoto saves a photo to a user's or community's wall after being uploaded.
 // For upload look at file upload.go.
 // https://vk.com/dev/photos.saveWallPhoto
-func (p *Photos) SaveWallPhoto(userID, groupID uint, photo, hash, caption string, server int, latitude, longitude float64) (PhotosSavedWallPhotoResponse, error) {
+func (p *Photos) SaveWallPhoto(par PhotosSaveWallPhotoParams) ([]PhotoObject, error) {
 	params := map[string]string{
-		"user_id":   fmt.Sprint(userID),
-		"group_id":  fmt.Sprint(groupID),
-		"photo":     photo,
-		"hash":      hash,
-		"caption":   caption,
-		"server":    fmt.Sprint(server),
-		"latitude":  fmt.Sprint(latitude),
-		"longitude": fmt.Sprint(longitude),
+		"user_id":   fmt.Sprint(par.UserID),
+		"group_id":  fmt.Sprint(par.GroupID),
+		"photo":     par.Photo,
+		"hash":      par.Hash,
+		"caption":   par.Caption,
+		"server":    fmt.Sprint(par.Server),
+		"latitude":  fmt.Sprint(par.Lat),
+		"longitude": fmt.Sprint(par.Long),
 	}
 	resp, err := p.vk.Request("photos.saveWallPhoto", params)
 	if err != nil {
-		return PhotosSavedWallPhotoResponse{}, err
+		return nil, err
 	}
 
-	var info PhotosSavedWallPhotoResponse
+	var info []PhotoObject
 	err = json.Unmarshal(resp, &info)
 	if err != nil {
-		return PhotosSavedWallPhotoResponse{}, err
+		return nil, err
 	}
 	return info, nil
 }
