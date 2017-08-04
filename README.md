@@ -109,7 +109,7 @@ if err != nil {
     * [GetPhotos](https://vk.com/dev/fave.getPhotos)
     * [GetUsers](https://vk.com/dev/fave.getUsers)
     * [GetVideos](https://vk.com/dev/fave.getVideos)
-* [Likes](https://vk.com/dev/likes)
+* [Likes](https://vk.com/dev/likes) ✓
     * [Add](https://vk.com/dev/likes.add)
     * [Delete](https://vk.com/dev/likes.delete)
     * [GetList](https://vk.com/dev/likes.getList)
@@ -117,7 +117,7 @@ if err != nil {
 * [Photos](https://vk.com/dev/photos)
     * [GetWallUploadServer](https://vk.com/dev/photos.getWallUploadServer)
     * [SaveWallPhoto](https://vk.com/dev/photos.saveWallPhoto)
-* [Status](https://vk.com/dev/status)
+* [Status](https://vk.com/dev/status) ✓
     * [Get](https://vk.com/dev/status.get)
     * [Set](https://vk.com/dev/status.set)
 * [Wall](https://vk.com/dev/wall)
