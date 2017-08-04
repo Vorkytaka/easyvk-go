@@ -32,6 +32,7 @@ type VK struct {
 	AccessToken string
 	Version     string
 	Account     Account
+	Board       Board
 	Fave        Fave
 	Likes       Likes
 	Photos      Photos
@@ -47,8 +48,9 @@ func WithToken(token string) VK {
 	vk.AccessToken = token
 	vk.Version = version
 	vk.Account = Account{&vk }
+	vk.Board = Board{&vk }
 	vk.Fave = Fave{&vk }
-	vk.Likes = Likes{&vk}
+	vk.Likes = Likes{&vk }
 	vk.Photos = Photos{&vk }
 	vk.Status = Status{&vk }
 	vk.Upload = Upload{}
