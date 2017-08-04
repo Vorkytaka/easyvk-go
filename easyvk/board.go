@@ -41,3 +41,21 @@ func (b *Board) AddTopic(p BoardAddTopicParams) (int, error) {
 	}
 	return int(topicID), nil
 }
+
+// CloseTopic closes a topic on a community's discussion board so that comments cannot be posted.
+// https://vk.com/dev/board.closeTopic
+func (b *Board) CloseTopic(groupID, topicID uint) (bool, error) {
+	params := map[string]string{
+		"group_id": fmt.Sprint(groupID),
+		"topic_id": fmt.Sprint(topicID),
+	}
+	resp, err := b.vk.Request("board.closeTopic", params)
+	if err != nil {
+		return false, err
+	}
+	ok, err := strconv.ParseUint(string(resp), 10, 8)
+	if err != nil {
+		return false, err
+	}
+	return ok == 1, nil
+}
