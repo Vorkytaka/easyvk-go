@@ -101,6 +101,8 @@ if err != nil {
     * [SetOffline](https://vk.com/dev/account.setOffline)
     * [SetOnline](https://vk.com/dev/account.setOnline)
     * [UnbanUser](https://vk.com/dev/account.unbanUser)
+* [Board](https://vk.com/dev/board)
+    * [AddTopic](https://vk.com/dev/board.addTopic)
 * [Fave](https://vk.com/dev/fave)
     * [GetLinks](https://vk.com/dev/fave.getLinks)
     * [GetPhotos](https://vk.com/dev/fave.getPhotos)
