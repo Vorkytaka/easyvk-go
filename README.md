@@ -105,6 +105,7 @@ if err != nil {
     * [AddTopic](https://vk.com/dev/board.addTopic)
     * [CloseTopic](https://vk.com/dev/board.closeTopic)
     * [DeleteTopic](https://vk.com/dev/board.deleteTopic)
+    * [EditTopic](https://vk.com/dev/board.editTopic)
 * [Fave](https://vk.com/dev/fave)
     * [GetLinks](https://vk.com/dev/fave.getLinks)
     * [GetPhotos](https://vk.com/dev/fave.getPhotos)

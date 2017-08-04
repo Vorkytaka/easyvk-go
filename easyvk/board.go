@@ -77,3 +77,22 @@ func (b *Board) DeleteTopic(groupID, topicID uint) (bool, error) {
 	}
 	return ok == 1, nil
 }
+
+// EditTopic edits the title of a topic on a community's discussion board.
+// https://vk.com/dev/board.editTopic
+func (b *Board) EditTopic(groupID, topicID uint, title string) (bool, error) {
+	params := map[string]string{
+		"group_id": fmt.Sprint(groupID),
+		"topic_id": fmt.Sprint(topicID),
+		"title":    title,
+	}
+	resp, err := b.vk.Request("board.editTopic", params)
+	if err != nil {
+		return false, err
+	}
+	ok, err := strconv.ParseUint(string(resp), 10, 8)
+	if err != nil {
+		return false, err
+	}
+	return ok == 1, nil
+}
