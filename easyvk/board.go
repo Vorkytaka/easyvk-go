@@ -59,3 +59,21 @@ func (b *Board) CloseTopic(groupID, topicID uint) (bool, error) {
 	}
 	return ok == 1, nil
 }
+
+// DeleteTopic deletes a topic from a community's discussion board.
+// https://vk.com/dev/board.deleteTopic
+func (b *Board) DeleteTopic(groupID, topicID uint) (bool, error) {
+	params := map[string]string{
+		"group_id": fmt.Sprint(groupID),
+		"topic_id": fmt.Sprint(topicID),
+	}
+	resp, err := b.vk.Request("board.deleteTopic", params)
+	if err != nil {
+		return false, err
+	}
+	ok, err := strconv.ParseUint(string(resp), 10, 8)
+	if err != nil {
+		return false, err
+	}
+	return ok == 1, nil
+}
