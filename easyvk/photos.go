@@ -12,10 +12,10 @@ type Photos struct {
 	vk *VK
 }
 
-// PhotosWallUploadServerResponse describes the server address
+// PhotosGetWallUploadServerResponse describes the server address
 // for photo upload onto a user's wall.
 // https://vk.com/dev/photos.getWallUploadServer
-type PhotosWallUploadServerResponse struct {
+type PhotosGetWallUploadServerResponse struct {
 	UploadURL string `json:"upload_url"`
 	AlbumID   int `json:"album_id"`
 	UserID    int `json:"user_id"`
@@ -23,16 +23,16 @@ type PhotosWallUploadServerResponse struct {
 
 // GetWallUploadServer returns the server address for photo upload onto a user's wall.
 // https://vk.com/dev/photos.getWallUploadServer
-func (p *Photos) GetWallUploadServer(groupID uint) (PhotosWallUploadServerResponse, error) {
+func (p *Photos) GetWallUploadServer(groupID uint) (PhotosGetWallUploadServerResponse, error) {
 	params := map[string]string{"group_id": fmt.Sprint(groupID) }
 	resp, err := p.vk.Request("photos.getWallUploadServer", params)
 	if err != nil {
-		return PhotosWallUploadServerResponse{}, err
+		return PhotosGetWallUploadServerResponse{}, err
 	}
-	var server PhotosWallUploadServerResponse
+	var server PhotosGetWallUploadServerResponse
 	err = json.Unmarshal(resp, &server)
 	if err != nil {
-		return PhotosWallUploadServerResponse{}, err
+		return PhotosGetWallUploadServerResponse{}, err
 	}
 	return server, nil
 }
