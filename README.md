@@ -90,7 +90,54 @@ if err != nil {
 // Parse it to struct or to interface.
 ```
 
-#### List of finished methods:
+### Naming conventions:
+
+#### API section:
+
+Every API section must be a structure and have name as it called in API and starts with a capital letter.
+
+*For example:*
+[Account](https://vk.com/dev/account) section must be  ```type Account struct {}```
+
+#### API methods:
+
+Every API method must be a method that have a received type of his section.
+It must have name as it called in API and starts with a capital letter.
+
+*For example:*
+[Account.banUser](https://vk.com/dev/account.banUser) method must be ```func (a *Account) BanUser() {}```
+
+#### Parameters:
+
+If method requests 4 or less parameters, then they must be just a parameters.
+
+*For example:* ```func (a *Account) BanUser(userID uint) {}```
+
+If method requests 5 or more parameters, then he must get it with a structure.
+That structure must naming like ```[SectionName][MethodName]Params```.
+
+*For example:* ```type WallPostParams struct {}```
+
+#### Responses:
+
+If method return only one field, then you must just return that field.
+
+*For example:*
+[Board.addTopic](https://vk.com/dev/board.addTopic) return ID of the created topic,
+so we just return integer.
+
+If method return only 1 if succeeded, then we need to return boolean.
+
+*For example:*
+[Board.closeTopic](https://vk.com/dev/board.closeTopic) return 1 is succeded, so
+we check if it's 1 and return true, and false otherwise.
+
+If method return object with 2 or more fields, then we need to create a structure for that response.
+That structure must naming like ```[SectionName][MethodName]Response```.
+
+*For example*: ```type AccountGetCountersResponse struct {}```
+
+### List of finished methods:
 * [Account](https://vk.com/dev/account)
     * [BanUser](https://vk.com/dev/account.banUser)
     * [GetAppPermissions](https://vk.com/dev/account.getAppPermissions)
