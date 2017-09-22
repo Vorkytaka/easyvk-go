@@ -2,12 +2,12 @@ package easyvk
 
 import (
 	"bytes"
-	"mime/multipart"
-	"os"
-	"net/http"
-	"io/ioutil"
-	"io"
 	"encoding/json"
+	"io"
+	"io/ioutil"
+	"mime/multipart"
+	"net/http"
+	"os"
 )
 
 // An Upload describes a set of methods
@@ -17,7 +17,7 @@ type Upload struct{}
 // A UploadPhotoWallResponse describes an info
 // about uploaded photo.
 type UploadPhotoWallResponse struct {
-	Server int `json:"server"`
+	Server int    `json:"server"`
 	Photo  string `json:"photo"`
 	Hash   string `json:"hash"`
 }
@@ -37,6 +37,7 @@ func (u *Upload) PhotoWall(url, filePath string) (UploadPhotoWallResponse, error
 	if err != nil {
 		return UploadPhotoWallResponse{}, err
 	}
+	defer fh.Close()
 
 	_, err = io.Copy(fileWriter, fh)
 	if err != nil {
