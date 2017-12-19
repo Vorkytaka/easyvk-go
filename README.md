@@ -1,6 +1,8 @@
 # EasyVK [![GoDoc](https://godoc.org/github.com/vorkytaka/easyvk-go/easyvk?status.svg)](https://godoc.org/github.com/vorkytaka/easyvk-go/easyvk)
 Package EasyVK provides you simple way to work with VK API.
 
+![Logo](./logo.png)
+
 ### Installation:
 #### Install:
 ```
