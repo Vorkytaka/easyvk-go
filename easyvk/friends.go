@@ -23,8 +23,8 @@ type FriendsGetResponse struct {
 
 // Get returns a list of friends of the user.
 //https://vk.com/dev/friends.get
-func (f *Friends) Get(userId, fields []string) (FaveGetUsersResponse, error) {
-	var fieldsWithId []string
+func (f *Friends) Get(userId int, fields []string) (FriendsGetResponse, error) {
+	var fieldsWithId = fields
 	if len(fields) == 0 {
 		fieldsWithId = append(fields, "id")
 	}
@@ -35,12 +35,12 @@ func (f *Friends) Get(userId, fields []string) (FaveGetUsersResponse, error) {
 	}
 	resp, err := f.vk.Request("friends.get", params)
 	if err != nil {
-		return FaveGetUsersResponse{}, err
+		return FriendsGetResponse{}, err
 	}
-	var users FaveGetUsersResponse
+	var users FriendsGetResponse
 	err = json.Unmarshal(resp, &users)
 	if err != nil {
-		return FaveGetUsersResponse{}, err
+		return FriendsGetResponse{}, err
 	}
 
 	return users, nil
