@@ -45,3 +45,9 @@ func (f *Friends) Get(userId int, fields []string) (FriendsGetResponse, error) {
 
 	return users, nil
 }
+
+// Get returns a list of friends of the user.
+//https://vk.com/dev/friends.get
+func (f *Friends) Get(userId int) (FriendsGetResponse, error) {
+	return f.Get(userId, []string{})
+}
