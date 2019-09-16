@@ -39,7 +39,7 @@ type VK struct {
 	Status      Status
 	Upload      Upload
 	Wall        Wall
-	HttpClient  http.Client
+	HttpClient  *http.Client
 }
 
 // WithToken helps to initialize your
