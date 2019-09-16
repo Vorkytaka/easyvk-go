@@ -39,6 +39,7 @@ type VK struct {
 	Status      Status
 	Upload      Upload
 	Wall        Wall
+	HttpClient  http.Client
 }
 
 // WithToken helps to initialize your
@@ -171,7 +172,11 @@ func (vk *VK) Request(method string, params map[string]string) ([]byte, error) {
 	query.Set("v", vk.Version)
 	u.RawQuery = query.Encode()
 
-	resp, err := http.Get(u.String())
+	request, err := http.NewRequest("GET", u.String(), nil); if err != nil {
+		return nil, err
+	}
+	resp, err := vk.HttpClient.Do(request)
+
 	if err != nil {
 		return nil, err
 	}
